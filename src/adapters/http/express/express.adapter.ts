@@ -4,7 +4,7 @@ import { HttpServerAdapterPort, HttpRouteAdapterPort } from "@/ports/http";
 import { DatabaseAdapterPort } from "@/ports/database";
 import { Environment } from "@/config/env";
 
-export class ExpressHttpAdapter implements HttpServerAdapterPort {
+export class ExpressHttpServerAdapter implements HttpServerAdapterPort {
   private readonly app: Express.Application;
   private readonly httpServerPort: number;
 
@@ -29,7 +29,9 @@ export class ExpressHttpAdapter implements HttpServerAdapterPort {
     this.databaseAdapter
       .connect()
       .then(() => console.log("Banco de dados conectado!"))
-      .catch((e: any) => console.log("Erro ao conectar ao banco de dados: ", e));
+      .catch((e: any) =>
+        console.log("Erro ao conectar ao banco de dados: ", e)
+      );
   }
 
   private setupMiddlewares(): void {

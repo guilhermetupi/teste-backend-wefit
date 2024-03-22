@@ -1,6 +1,7 @@
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
+  setupFilesAfterEnv: ['<rootDir>/tests/setupTests.ts'],
   moduleNameMapper: {
     "^@/adapters/(.*)$": "<rootDir>/src/adapters/$1",
     "^@/domain/(.*)$": "<rootDir>/src/domain/$1",
@@ -11,5 +12,5 @@ module.exports = {
   transform: {
     "^.+\\.ts$": ["ts-jest"],
   },
-  testPathIgnorePatterns: ["<rootDir>/node_modules/"],
+  testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/dist/"],
 };

@@ -1,5 +1,5 @@
 import Express from "express";
-import { ExpressHttpAdapter } from "@/adapters/http/express";
+import { ExpressHttpServerAdapter } from "@/adapters/http/express";
 import { HttpRouteAdapterPort } from "@/ports/http";
 import { DatabaseAdapterPort } from "@/ports/database";
 
@@ -18,7 +18,7 @@ class DatabaseStub implements DatabaseAdapterPort {
 export function makeSut() {
   const routeStub = new RouteStub();
   const databaseStub = new DatabaseStub();
-  const sut = new ExpressHttpAdapter([routeStub], databaseStub);
+  const sut = new ExpressHttpServerAdapter([routeStub], databaseStub);
 
   return {
     sut,

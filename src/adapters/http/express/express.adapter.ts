@@ -2,31 +2,34 @@ import Express from "express";
 import cors from "cors";
 import { HttpServerAdapterPort, HttpRouteAdapterPort } from "@/ports/http";
 import { DatabaseAdapterPort } from "@/ports/database";
+import { Environment } from "@/config/env.config";
 
 export class ExpressHttpAdapter implements HttpServerAdapterPort {
   private readonly app: Express.Application;
+  private readonly httpServerPort: number;
 
   constructor(
     private readonly routeAdapters: HttpRouteAdapterPort<Express.Router>[],
     private readonly databaseAdapter: DatabaseAdapterPort
   ) {
     this.app = Express();
+    this.httpServerPort = Environment.getHttpServerPort();
   }
 
   execute(): void {
     this.setupDatabase();
     this.setupMiddlewares();
     this.setupRoutes();
-    this.app.listen(3000, () => {
-      console.log("Server is running on port 3000");
+    this.app.listen(this.httpServerPort, () => {
+      console.log(`Escutando na porta ${this.httpServerPort}`);
     });
   }
 
   private setupDatabase(): void {
     this.databaseAdapter
       .connect()
-      .then(() => console.log("Database connected!"))
-      .catch((e: any) => console.log("Error connection to database: ", e));
+      .then(() => console.log("Banco de dados conectado!"))
+      .catch((e: any) => console.log("Erro ao conectar ao banco de dados: ", e));
   }
 
   private setupMiddlewares(): void {

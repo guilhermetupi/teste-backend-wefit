@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node-dev --files -r tsconfig-paths/register --inspect --ignore-watch node_modules src/index.ts"
+    "start": "ts-node-dev --files -r tsconfig-paths/register --inspect --ignore-watch node_modules src/index.ts",
+    "test": "./node_modules/.bin/jest --runInBand --forceExit --detectOpenHandles",
+    "test:coverage": "npm run test -- --coverage"
   },
   "dependencies": {
     "cors": "^2.8.5",

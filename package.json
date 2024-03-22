@@ -6,7 +6,11 @@
   "scripts": {
     "start": "ts-node-dev --files -r tsconfig-paths/register --inspect --ignore-watch node_modules src/index.ts",
     "test": "./node_modules/.bin/jest --runInBand --forceExit --detectOpenHandles",
-    "test:coverage": "npm run test -- --coverage"
+    "test:coverage": "npm run test -- --coverage",
+    "orm:init": "npm run build && ./node_modules/.bin/typeorm -d ./dist/src/config/orm/orm.config.js",
+    "migration:generate": "npm run orm:init migration:generate",
+    "migration:run": "npm run orm:init migration:run",
+    "schema:drop": "npm run orm:init schema:drop"
   },
   "dependencies": {
     "better-sqlite3": "^9.4.3",

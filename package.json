@@ -7,10 +7,12 @@
     "start": "ts-node-dev --files -r tsconfig-paths/register --inspect --ignore-watch node_modules src/index.ts"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.3",
     "jest": "^29.7.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.13",
     "@types/jest": "^29.5.12",
     "ts-jest": "^29.1.2",

@@ -2,7 +2,7 @@ import Express from "express";
 import cors from "cors";
 import { HttpServerAdapterPort, HttpRouteAdapterPort } from "@/ports/http";
 import { DatabaseAdapterPort } from "@/ports/database";
-import { Environment } from "@/config/env.config";
+import { Environment } from "@/config/env";
 
 export class ExpressHttpAdapter implements HttpServerAdapterPort {
   private readonly app: Express.Application;

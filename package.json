@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node-dev --files -r tsconfig-paths/register --inspect --ignore-watch node_modules src/index.ts",
+    "build": "./node_modules/.bin/rimraf dist && ./node_modules/.bin/tsc",
     "test": "./node_modules/.bin/jest --runInBand --forceExit --detectOpenHandles",
     "test:coverage": "npm run test -- --coverage",
     "orm:init": "npm run build && ./node_modules/.bin/typeorm -d ./dist/src/config/orm/orm.config.js",

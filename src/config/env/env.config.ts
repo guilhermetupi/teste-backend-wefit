@@ -1,5 +1,5 @@
-import { DatabaseEnv } from "@/types/database";
-import { NODE_ENV } from "@/types/environment";
+import { DatabaseEnv } from "@/domain/types/database";
+import { NODE_ENV } from "@/domain/types/environment";
 
 export class Environment {
   public static getHttpServerPort(): number {

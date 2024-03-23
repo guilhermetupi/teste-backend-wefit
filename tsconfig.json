@@ -13,8 +13,7 @@
       "@/adapters/*": ["./src/adapters/*"],
       "@/domain/*": ["./src/domain/*"],
       "@/ports/*": ["./src/ports/*"],
-      "@/config/*": ["./src/config/*"],
-      "@/types/*": ["./src/types/*"]
+      "@/config/*": ["./src/config/*"]
     }
   },
   "exclude": ["node_modules"],

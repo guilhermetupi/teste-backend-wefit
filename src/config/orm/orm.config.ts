@@ -1,7 +1,7 @@
 import { DataSource, DataSourceOptions } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 import { Environment } from "../env";
-import { NODE_ENV } from "@/types/environment";
+import { NODE_ENV } from "@/domain/types/environment";
 
 function getDataSource() {
   const appDataSouceOptions: DataSourceOptions = {

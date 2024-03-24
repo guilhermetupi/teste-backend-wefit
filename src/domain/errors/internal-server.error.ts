@@ -1,4 +1,4 @@
-import { ErrorType } from "@/domain/types/error";
+import { ErrorType } from "@/types/error";
 
 export class InternalServerError extends Error {
   constructor() {

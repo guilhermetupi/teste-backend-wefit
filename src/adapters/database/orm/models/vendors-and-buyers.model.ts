@@ -1,4 +1,4 @@
-import { PersonTypeEnum } from "@/domain/types/entities";
+import { PersonTypeEnum } from "@/types/entities";
 import {
   Column,
   CreateDateColumn,

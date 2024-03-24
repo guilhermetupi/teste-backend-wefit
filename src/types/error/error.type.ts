@@ -3,4 +3,5 @@ export enum ErrorType {
   CONFLICT = "ConflictError",
   INTERNAL_SERVER = "InternalServerError",
   NOT_FOUND = "NotFoundError",
+  UNAUTHORIZED = "UnauthorizedError",
 }

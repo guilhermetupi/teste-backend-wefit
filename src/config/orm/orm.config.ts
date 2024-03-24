@@ -1,7 +1,7 @@
 import { DataSource, DataSourceOptions } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 import { Environment } from "../env";
-import { NODE_ENV } from "@/domain/types/environment";
+import { NODE_ENV } from "@/types/environment";
 
 function getDataSource() {
   const appDataSouceOptions: DataSourceOptions = {
@@ -28,7 +28,7 @@ function getDataSource() {
     namingStrategy: new SnakeNamingStrategy(),
   };
 
-  return Environment.getNodeEnv() === NODE_ENV.TEST
+  return Environment.nodeEnv === NODE_ENV.TEST
     ? integrationTestDataSouceOptions
     : appDataSouceOptions;
 }

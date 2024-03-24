@@ -1,6 +1,6 @@
 import { VendorOrBuyer } from "@/domain/entities";
 import { InternalServerError } from "@/domain/errors";
-import { DocumentType } from "@/domain/types/entities";
+import { DocumentType } from "@/types/entities";
 
 export namespace FindVendorOrBuyerByUserIdAndDocumentsRepositoryPort {
   export type Param = {

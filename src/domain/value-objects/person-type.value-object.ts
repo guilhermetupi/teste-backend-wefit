@@ -1,5 +1,5 @@
 import { InvalidParamError } from "../errors";
-import { PersonTypeEnum } from "../types/entities";
+import { PersonTypeEnum } from "@/types/entities";
 
 export class PersonType {
   private constructor(private readonly personType: PersonTypeEnum) {

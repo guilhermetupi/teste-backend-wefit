@@ -13,7 +13,7 @@ export class ExpressHttpServerAdapter implements HttpServerAdapterPort {
     private readonly databaseAdapter: DatabaseAdapterPort
   ) {
     this.app = Express();
-    this.httpServerPort = Environment.getHttpServerPort();
+    this.httpServerPort = Environment.httpServerPort;
   }
 
   execute(): void {

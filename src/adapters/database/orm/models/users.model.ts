@@ -10,7 +10,7 @@ export class UsersModel {
   email: string;
 
   @Column({ type: "varchar", select: false })
-  password: string;
+  password?: string;
 
   @OneToMany(() => VendorsAndBuyersModel, (vendorOrBuyer) => vendorOrBuyer.user)
   vendorsAndBuyers?: VendorsAndBuyersModel[];

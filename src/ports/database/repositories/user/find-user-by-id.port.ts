@@ -1,9 +1,13 @@
-import { CreateOrFindUserRepositoryResponse } from "@/domain/types/database/repositories";
+import { User } from "@/domain/entities";
+import { InternalServerError } from "@/domain/errors";
 
 export namespace FindUserByIdRepositoryPort {
   export type Param = string;
 
-  export type Response = CreateOrFindUserRepositoryResponse ;  
+  export type Response =
+    | Omit<User, "password">
+    | undefined
+    | InternalServerError;
 }
 
 export abstract class FindUserByIdRepositoryPort {

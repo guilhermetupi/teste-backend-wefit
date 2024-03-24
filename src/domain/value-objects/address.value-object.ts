@@ -1,5 +1,5 @@
 import { InvalidParamError } from "../errors";
-import { AddressType } from "../types/entities";
+import { AddressType } from "@/types/entities";
 
 export class Address {
   constructor(private readonly address: AddressType) {

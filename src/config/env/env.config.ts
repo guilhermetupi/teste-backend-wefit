@@ -1,12 +1,13 @@
-import { DatabaseEnv } from "@/domain/types/database";
-import { NODE_ENV } from "@/domain/types/environment";
+import { DatabaseEnv } from "@/types/database";
+import { NODE_ENV } from "@/types/environment";
+import { TokenData } from "@/types/token";
 
 export class Environment {
-  public static getHttpServerPort(): number {
+  public static get httpServerPort(): number {
     return Number(process.env.HTTP_PORT) || 4568;
   }
 
-  public static getDatabaseConfig(): DatabaseEnv {
+  public static get databaseConfig(): DatabaseEnv {
     return {
       host: process.env.MYSQLDB_HOST || "localhost",
       port: Number(process.env.MYSQLDB_PORT) || 3306,
@@ -16,8 +17,16 @@ export class Environment {
     };
   }
 
-  public static getNodeEnv(): NODE_ENV {
+  public static get nodeEnv(): NODE_ENV {
     const nodeEnv = process.env.NODE_ENV as NODE_ENV | undefined;
     return nodeEnv || NODE_ENV.DEV;
+  }
+
+  public static get tokenData(): TokenData {
+    return {
+      secret: process.env.TOKEN_SECRET || "secret",
+      accessTokenExpiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN || "1h",
+      refreshTokenExpiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN || "1h",
+    };
   }
 }

@@ -1,23 +1,18 @@
-import { CreateUserCommand } from "@/domain/commands";
-import {
-  InvalidParamError,
-  ConflictError,
-  InternalServerError,
-} from "@/domain/errors";
+import { User } from "@/domain/entities";
+import { ConflictError, InternalServerError, InvalidParamError } from "@/domain/errors";
+import { Password } from "@/domain/value-objects";
+import { EncryptCryptographyPort } from "@/ports/cryptography";
 import {
   CreateUserRepositoryPort,
   FindUserByEmailRepositoryPort,
 } from "@/ports/database/repositories/user";
 import { CreateUserUseCasePort } from "@/ports/usecases/user";
-import {
-  EmailValidationPort,
-  PasswordValidationPort,
-} from "@/ports/validations";
 
 export class CreateUserUseCase implements CreateUserUseCasePort {
   constructor(
     private readonly createUserRepository: CreateUserRepositoryPort,
-    private readonly findUserByEmailRepository: FindUserByEmailRepositoryPort
+    private readonly findUserByEmailRepository: FindUserByEmailRepositoryPort,
+    private readonly encrypterAdapter: EncryptCryptographyPort
   ) {}
 
   async execute(
@@ -31,13 +26,25 @@ export class CreateUserUseCase implements CreateUserUseCasePort {
       return emailAlreadyInUse;
     }
 
-    const createdUser = await this.createUserRepository.execute(user);
+    const hashedPassword = this.encrypterAdapter.execute(user.password.value);
+    const hashedPasswordValueObject = Password.create(hashedPassword, false);
+
+    if (hashedPasswordValueObject instanceof InvalidParamError) {
+      return hashedPasswordValueObject;
+    }
+
+    const userWithHashedPassword = new User(
+      user.email,
+      hashedPasswordValueObject
+    );
+
+    const createdUser = await this.createUserRepository.execute(userWithHashedPassword);
 
     if (createdUser instanceof InternalServerError) {
       return new InternalServerError();
     }
 
-    return createdUser.id;
+    return createdUser.id as string;
   }
 
   private async checkIfEmailIsAlreadyInUse(

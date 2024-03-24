@@ -5,11 +5,16 @@ export class Password {
     Object.freeze(this);
   }
 
-  static create(password: string): Password | InvalidParamError {
-    const passwordIsValid = Password.validate(password);
+  static create(
+    password: string,
+    requiresValidation = true
+  ): Password | InvalidParamError {
+    if (requiresValidation) {
+      const passwordIsValid = Password.validate(password);
 
-    if (!passwordIsValid) {
-      return passwordIsValid;
+      if (!passwordIsValid) {
+        return passwordIsValid;
+      }
     }
 
     return new Password(password);
@@ -22,9 +27,10 @@ export class Password {
       return new InvalidParamError("Password is required");
     }
 
-    const passwordIsValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d\s:]).{8,20}$/.test(
-      password
-    );
+    const passwordIsValid =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d\s:]).{8,20}$/.test(
+        password
+      );
 
     if (!passwordIsValid) {
       return new InvalidParamError("Password is invalid");

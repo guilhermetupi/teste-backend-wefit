@@ -18,16 +18,16 @@ export class VendorsAndBuyersModel {
   @Column({ type: "varchar" })
   name: string;
 
-  @Column({ type: "varchar" })
+  @Column({ type: "varchar", length: 11})
   mobilePhone: string;
 
-  @Column({ type: "varchar" })
+  @Column({ type: "varchar", length: 10 })
   telephone: string;
 
   @Column({ type: "varchar" })
   email: string;
 
-  @Column({ type: "varchar" })
+  @Column({ type: "varchar", length: 8 })
   cep: string;
 
   @Column({ type: "varchar" })

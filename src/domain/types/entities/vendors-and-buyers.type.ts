@@ -10,6 +10,5 @@ export type AddressType = {
   neighborhood: string;
   city: string;
   state: string;
-  country: string;
-  zipCode: string;
+  cep: string;
 };

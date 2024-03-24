@@ -16,6 +16,21 @@ export class Phone {
   }
 
   static validate(phone: string): true | InvalidParamError {
+    const phoneIsUndefined = !phone || phone.trim() === "";
+
+    if (phoneIsUndefined) {
+      return new InvalidParamError("Phone is required");
+    }
+
+    const phoneIsValidMobilePhoneNumber =
+      /^(\(?\d{2}\)?\s)?(\d{4,5}\-\d{4})$/.test(phone);
+    const phoneIsValidLandlinePhoneNumber =
+      /^(\(?\d{2}\)?\s)?(\d{4}\-\d{4})$/.test(phone);
+
+    if (!phoneIsValidMobilePhoneNumber || !phoneIsValidLandlinePhoneNumber) {
+      return new InvalidParamError("Phone is invalid");
+    }
+
     return true;
   }
 

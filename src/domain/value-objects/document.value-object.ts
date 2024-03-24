@@ -1,4 +1,3 @@
-import { CnpjValidationPort, CpfValidationPort } from "@/ports/validations";
 import { InvalidParamError } from "../errors";
 
 export class Document {
@@ -8,14 +7,9 @@ export class Document {
 
   static create(
     document: string,
-    documentValidator: CpfValidationPort | CnpjValidationPort,
     required = true
   ): Document | undefined | InvalidParamError {
-    const documentIsValid = Document.validate(
-      document,
-      documentValidator,
-      required
-    );
+    const documentIsValid = Document.validate(document, required);
 
     if (!documentIsValid) {
       return documentIsValid;
@@ -26,7 +20,6 @@ export class Document {
 
   static validate(
     document: string,
-    documentValidator: CpfValidationPort | CnpjValidationPort,
     required: boolean
   ): true | InvalidParamError | undefined {
     const documentIsNotProvided = !document || document.trim() === "";
@@ -39,9 +32,12 @@ export class Document {
       return undefined;
     }
 
-    const documentIsValid = documentValidator.validate(document);
+    const documentIsValidCpf = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/.test(document);
+    const documentIsValidCnpj = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/.test(
+      document
+    );
 
-    if (!documentIsValid) {
+    if (!documentIsValidCpf || !documentIsValidCnpj) {
       return new InvalidParamError("Invalid document.");
     }
 

@@ -305,46 +305,6 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@hapi/address@^4.0.1":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@hapi/address/-/address-4.1.0.tgz#d60c5c0d930e77456fdcde2598e77302e2955e1d"
-  integrity sha512-SkszZf13HVgGmChdHo/PxchnSaCJ6cetVqLzyciudzZRT0jcOouIF/Q93mgjw8cce+D+4F4C1Z/WrfFN+O3VHQ==
-  dependencies:
-    "@hapi/hoek" "^9.0.0"
-
-"@hapi/formula@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@hapi/formula/-/formula-2.0.0.tgz#edade0619ed58c8e4f164f233cda70211e787128"
-  integrity sha512-V87P8fv7PI0LH7LiVi8Lkf3x+KCO7pQozXRssAHNXXL9L1K+uyu4XypLXwxqVDKgyQai6qj3/KteNlrqDx4W5A==
-
-"@hapi/hoek@^9.0.0":
-  version "9.3.0"
-  resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.3.0.tgz#8368869dcb735be2e7f5cb7647de78e167a251fb"
-  integrity sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==
-
-"@hapi/joi@^17.1.0":
-  version "17.1.1"
-  resolved "https://registry.yarnpkg.com/@hapi/joi/-/joi-17.1.1.tgz#9cc8d7e2c2213d1e46708c6260184b447c661350"
-  integrity sha512-p4DKeZAoeZW4g3u7ZeRo+vCDuSDgSvtsB/NpfjXEHTUjSeINAi/RrVOWiVQ1isaoLzMvFEhe8n5065mQq1AdQg==
-  dependencies:
-    "@hapi/address" "^4.0.1"
-    "@hapi/formula" "^2.0.0"
-    "@hapi/hoek" "^9.0.0"
-    "@hapi/pinpoint" "^2.0.0"
-    "@hapi/topo" "^5.0.0"
-
-"@hapi/pinpoint@^2.0.0":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@hapi/pinpoint/-/pinpoint-2.0.1.tgz#32077e715655fc00ab8df74b6b416114287d6513"
-  integrity sha512-EKQmr16tM8s16vTT3cA5L0kZZcTMU5DUOZTuvpnY738m+jyP3JIUj+Mm1xc1rsLkGBQ/gVnfKYPwOmPg1tUR4Q==
-
-"@hapi/topo@^5.0.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@hapi/topo/-/topo-5.1.0.tgz#dc448e332c6c6e37a4dc02fd84ba8d44b9afb012"
-  integrity sha512-foQZKJig7Ob0BMAYBfcJk8d77QtOe7Wo4ox7ff1lQYoNNAb6jwcY1ncdoy2e9wQZzvNy7ODZCYJkK8kzmcAnAg==
-  dependencies:
-    "@hapi/hoek" "^9.0.0"
-
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
   resolved "https://registry.npmjs.org/@isaacs/cliui/-/cliui-8.0.2.tgz"
@@ -728,11 +688,6 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/google-libphonenumber@^7.4.30":
-  version "7.4.30"
-  resolved "https://registry.yarnpkg.com/@types/google-libphonenumber/-/google-libphonenumber-7.4.30.tgz#a47ed8f1f237bd43edbd1c8aff24400b0fd9b2fe"
-  integrity sha512-Td1X1ayRxePEm6/jPHUBs2tT6TzW1lrVB6ZX7ViPGellyzO/0xMNi+wx5nH6jEitjznq276VGIqjK5qAju0XVw==
-
 "@types/graceful-fs@^4.1.3":
   version "4.1.9"
   resolved "https://registry.npmjs.org/@types/graceful-fs/-/graceful-fs-4.1.9.tgz"
@@ -814,11 +769,6 @@
   version "0.0.30"
   resolved "https://registry.npmjs.org/@types/strip-json-comments/-/strip-json-comments-0.0.30.tgz"
   integrity sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==
-
-"@types/validator@^13.11.9":
-  version "13.11.9"
-  resolved "https://registry.yarnpkg.com/@types/validator/-/validator-13.11.9.tgz#adfe96520b437a0eaa798a475877bf2f75ee402d"
-  integrity sha512-FCTsikRozryfayPuiI46QzH3fnrOoctTjvOYZkho9BTFLCOZ2rgZJHMOVgCOfttjPJcgOx52EpkY0CMfy87MIw==
 
 "@types/yargs-parser@*":
   version "21.0.3"
@@ -1297,13 +1247,6 @@ cors@^2.8.5:
     object-assign "^4"
     vary "^1"
 
-cpf-cnpj-validator@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/cpf-cnpj-validator/-/cpf-cnpj-validator-1.0.3.tgz#8b8cfbf5110bf1d6333d18239380feecd0efe01d"
-  integrity sha512-Slh7iv+sf2FhP9xFRMExuaDF7ndERVzmjBZHqwWG+GqHSqPmEggvLuKUUFJZxb+G804rjqRnnu5eCkbeChqM/Q==
-  dependencies:
-    "@hapi/joi" "^17.1.0"
-
 create-jest@^29.7.0:
   version "29.7.0"
   resolved "https://registry.npmjs.org/create-jest/-/create-jest-29.7.0.tgz"
@@ -1736,11 +1679,6 @@ globals@^11.1.0:
   version "11.12.0"
   resolved "https://registry.npmjs.org/globals/-/globals-11.12.0.tgz"
   integrity sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==
-
-google-libphonenumber@^3.2.34:
-  version "3.2.34"
-  resolved "https://registry.yarnpkg.com/google-libphonenumber/-/google-libphonenumber-3.2.34.tgz#ef29b53be0f9fb517aaa53d26a541150f86ec921"
-  integrity sha512-CLwkp0lZvMywh6dCh0T3Fm8XsfJhLAupc8AECwYkJNQBPW8wQPrv/tV0oFKCs8FMw+pTQyNPZoycgBzYjqtTZQ==
 
 graceful-fs@^4.2.9:
   version "4.2.11"
@@ -3446,11 +3384,6 @@ v8-to-istanbul@^9.0.1:
     "@jridgewell/trace-mapping" "^0.3.12"
     "@types/istanbul-lib-coverage" "^2.0.1"
     convert-source-map "^2.0.0"
-
-validator@^13.11.0:
-  version "13.11.0"
-  resolved "https://registry.yarnpkg.com/validator/-/validator-13.11.0.tgz#23ab3fd59290c61248364eabf4067f04955fbb1b"
-  integrity sha512-Ii+sehpSfZy+At5nPdnyMhx78fEoPDkR2XW/zimHEL3MyGJQOCQ7WeP20jPYRz7ZCpcKLB21NxuXHF3bxjStBQ==
 
 vary@^1, vary@~1.1.2:
   version "1.1.2"

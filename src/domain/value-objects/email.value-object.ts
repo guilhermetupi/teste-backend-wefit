@@ -16,6 +16,18 @@ export class Email {
   }
 
   static validate(email: string): true | InvalidParamError {
+    const emailIsUndefined = !email || email.trim() === "";
+
+    if (emailIsUndefined) {
+      return new InvalidParamError("Email is required");
+    }
+
+    const emailIsValid = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email);
+
+    if (!emailIsValid) {
+      return new InvalidParamError("Email is invalid");
+    }
+
     return true;
   }
 

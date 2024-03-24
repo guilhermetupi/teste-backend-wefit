@@ -16,6 +16,20 @@ export class Password {
   }
 
   static validate(password: string): true | InvalidParamError {
+    const passwordIsUndefined = !password || password.trim() === "";
+
+    if (passwordIsUndefined) {
+      return new InvalidParamError("Password is required");
+    }
+
+    const passwordIsValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d\s:]).{8,20}$/.test(
+      password
+    );
+
+    if (!passwordIsValid) {
+      return new InvalidParamError("Password is invalid");
+    }
+
     return true;
   }
 

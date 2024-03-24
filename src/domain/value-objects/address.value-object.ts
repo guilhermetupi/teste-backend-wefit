@@ -29,7 +29,7 @@ export class Address {
       return new InvalidParamError("Street is required");
     }
 
-    const addressStreetIsBigEnough = address.street.length >= 3;
+    const addressStreetIsBigEnough = address.street.length >= 4;
 
     if (!addressStreetIsBigEnough) {
       return new InvalidParamError("Street is too short");
@@ -42,7 +42,7 @@ export class Address {
       return new InvalidParamError("Neighborhood is required");
     }
 
-    const addressNeighborhoodIsBigEnough = address.street.length >= 3;
+    const addressNeighborhoodIsBigEnough = address.neighborhood.length >= 2;
 
     if (!addressNeighborhoodIsBigEnough) {
       return new InvalidParamError("Neighborhood is too short");
@@ -61,6 +61,12 @@ export class Address {
       return new InvalidParamError("City is required");
     }
 
+    const addressCityIsBigEnough = address.city.length >= 3;
+
+    if (!addressCityIsBigEnough) {
+      return new InvalidParamError("City is too short");
+    }
+
     const addressStateIsDefined = !!address.state;
 
     if (!addressStateIsDefined) {
@@ -73,28 +79,16 @@ export class Address {
       return new InvalidParamError("State is too short");
     }
 
-    const addressCountryIsDefined = !!address.country;
+    const addressCepIsDefined = !!address.cep;
 
-    if (!addressCountryIsDefined) {
-      return new InvalidParamError("Country is required");
-    }
-
-    const addressCountryIsBigEnough = address.country.length >= 4;
-
-    if (!addressCountryIsBigEnough) {
-      return new InvalidParamError("Country is too short");
-    }
-
-    const addressZipCodeIsDefined = !!address.zipCode;
-
-    if (!addressZipCodeIsDefined) {
+    if (!addressCepIsDefined) {
       return new InvalidParamError("Zip code is required");
     }
 
-    const addressZipCodeIsBigEnough = address.zipCode.length >= 3;
+    const addressCepIsInvalid = !/^\d{5}-\d{3}$/.test(address.cep);
 
-    if (!addressZipCodeIsBigEnough) {
-      return new InvalidParamError("Zip code is too short");
+    if (!addressCepIsInvalid) {
+      return new InvalidParamError("Zip code is invalid");
     }
 
     return true;

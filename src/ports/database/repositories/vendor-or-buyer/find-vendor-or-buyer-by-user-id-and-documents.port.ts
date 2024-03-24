@@ -3,7 +3,7 @@ import { InternalServerError } from "@/domain/errors";
 import { DocumentType } from "@/domain/types/entities";
 
 export namespace FindVendorOrBuyerByUserIdAndDocumentsRepositoryPort {
-  export type Params = {
+  export type Param = {
     userId: string;
     document: string;
   };
@@ -13,6 +13,6 @@ export namespace FindVendorOrBuyerByUserIdAndDocumentsRepositoryPort {
 
 export abstract class FindVendorOrBuyerByUserIdAndDocumentsRepositoryPort {
   abstract execute(
-    data: FindVendorOrBuyerByUserIdAndDocumentsRepositoryPort.Params
+    data: FindVendorOrBuyerByUserIdAndDocumentsRepositoryPort.Param
   ): Promise<FindVendorOrBuyerByUserIdAndDocumentsRepositoryPort.Response>;
 }

@@ -1,4 +1,4 @@
-import { DataSource, Repository } from "typeorm";
+import { DataSource } from "typeorm";
 import { InternalServerError } from "@/domain/errors";
 import { VendorOrBuyerMapper } from "@/adapters/database/orm/repositories/mappers";
 import { CreateVendorOrBuyerRepositoryPort } from "@/ports/database/repositories/vendor-or-buyer";

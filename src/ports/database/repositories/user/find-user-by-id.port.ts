@@ -3,7 +3,7 @@ import { CreateOrFindUserRepositoryResponse } from "@/domain/types/database/repo
 export namespace FindUserByIdRepositoryPort {
   export type Param = string;
 
-  export type Response = CreateOrFindUserRepositoryResponse;
+  export type Response = CreateOrFindUserRepositoryResponse ;  
 }
 
 export abstract class FindUserByIdRepositoryPort {

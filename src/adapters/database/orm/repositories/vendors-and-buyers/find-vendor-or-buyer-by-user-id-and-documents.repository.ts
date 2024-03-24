@@ -15,7 +15,7 @@ export class TypeOrmFindVendorOrBuyerByUserIdAndDocumentsRepository
   async execute({
     userId,
     document,
-  }: FindVendorOrBuyerByUserIdAndDocumentsRepositoryPort.Params): Promise<FindVendorOrBuyerByUserIdAndDocumentsRepositoryPort.Response> {
+  }: FindVendorOrBuyerByUserIdAndDocumentsRepositoryPort.Param): Promise<FindVendorOrBuyerByUserIdAndDocumentsRepositoryPort.Response> {
     try {
       const vendorOrBuyer = await this.repository.findOne({
         where: [

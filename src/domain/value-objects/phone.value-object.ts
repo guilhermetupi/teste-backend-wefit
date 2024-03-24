@@ -1,7 +1,9 @@
 import { InvalidParamError } from "../errors";
 
 export class Phone {
-  private constructor(private readonly phone: string) {}
+  private constructor(private readonly phone: string) {
+    Object.freeze(this);
+  }
 
   static create(phone: string): Phone | InvalidParamError {
     const phoneIsValid = Phone.validate(phone);

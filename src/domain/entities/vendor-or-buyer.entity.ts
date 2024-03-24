@@ -1,7 +1,7 @@
 import {
   Document,
   PersonType,
-  VendorOrBuyerAddress,
+  Address,
   Name,
   Email,
   Phone,
@@ -10,12 +10,12 @@ import {
 export class VendorOrBuyer {
   constructor(
     public readonly personType: PersonType,
-    public readonly cnpj: Document,
+    public readonly cnpj: Document | undefined,
     public readonly cpf: Document,
     public readonly name: Name,
-    public readonly cellphone: Phone,
+    public readonly mobilePhone: Phone,
     public readonly telephone: Phone,
     public readonly email: Email,
-    public readonly address: VendorOrBuyerAddress
+    public readonly address: Address
   ) {}
 }

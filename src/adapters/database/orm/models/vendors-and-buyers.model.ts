@@ -19,7 +19,7 @@ export class VendorsAndBuyersModel {
   name: string;
 
   @Column({ type: "varchar" })
-  cellphone: string;
+  mobilePhone: string;
 
   @Column({ type: "varchar" })
   telephone: string;

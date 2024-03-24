@@ -1,4 +1,4 @@
-import { CreateUserCommand } from "@/domain/commands";
+import { CreateVendorOrBuyerCommand } from "@/domain/commands";
 import {
   InvalidParamError,
   ConflictError,
@@ -6,7 +6,10 @@ import {
 } from "@/domain/errors";
 
 export namespace CreateVendorOrBuyerUseCasePort {
-  export type Param = CreateUserCommand;
+  export type Param = {
+    userId: string;
+    vendorOrBuyer: CreateVendorOrBuyerCommand;
+  };
 
   export type Response =
     | void

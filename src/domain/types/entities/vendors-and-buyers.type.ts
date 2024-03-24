@@ -3,7 +3,7 @@ export enum PersonTypeEnum {
   LEGAL = "Pessoa Jurídica",
 }
 
-export type VendorOrBuyerAddressType = {
+export type AddressType = {
   street: string;
   number: string;
   complement?: string;

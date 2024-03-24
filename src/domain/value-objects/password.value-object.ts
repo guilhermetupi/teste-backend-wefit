@@ -1,7 +1,9 @@
 import { InvalidParamError } from "../errors";
 
 export class Password {
-  private constructor(private readonly password: string) {}
+  private constructor(private readonly password: string) {
+    Object.freeze(this);
+  }
 
   static create(password: string): Password | InvalidParamError {
     const passwordIsValid = Password.validate(password);

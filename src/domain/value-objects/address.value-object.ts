@@ -1,22 +1,22 @@
 import { InvalidParamError } from "../errors";
-import { VendorOrBuyerAddressType } from "../types/entities";
+import { AddressType } from "../types/entities";
 
-export class VendorOrBuyerAddress {
-  constructor(private readonly address: VendorOrBuyerAddressType) {
+export class Address {
+  constructor(private readonly address: AddressType) {
     Object.freeze(this);
   }
 
-  static create(address: VendorOrBuyerAddressType): VendorOrBuyerAddress {
-    const addressIsValid = VendorOrBuyerAddress.isValid(address);
+  static create(address: AddressType): Address {
+    const addressIsValid = Address.isValid(address);
 
     if (addressIsValid instanceof InvalidParamError) {
       throw addressIsValid;
     }
 
-    return new VendorOrBuyerAddress(address);
+    return new Address(address);
   }
 
-  static isValid(address: VendorOrBuyerAddressType): true | InvalidParamError {
+  static isValid(address: AddressType): true | InvalidParamError {
     const addressIsDefined = !!address;
 
     if (!addressIsDefined) {
@@ -100,7 +100,7 @@ export class VendorOrBuyerAddress {
     return true;
   }
 
-  get value(): VendorOrBuyerAddressType {
+  get value(): AddressType {
     return this.address;
   }
 }

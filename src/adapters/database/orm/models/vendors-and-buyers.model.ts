@@ -1,10 +1,18 @@
 import { PersonTypeEnum } from "@/domain/types/entities";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
+import { UsersModel } from "./users.model";
 
 @Entity("vendors_and_buyers")
 export class VendorsAndBuyersModel {
   @PrimaryGeneratedColumn("uuid")
-  id: string;
+  id?: string;
 
   @Column({ type: "simple-enum", enum: PersonTypeEnum })
   personType: PersonTypeEnum;
@@ -18,7 +26,7 @@ export class VendorsAndBuyersModel {
   @Column({ type: "varchar" })
   name: string;
 
-  @Column({ type: "varchar", length: 11})
+  @Column({ type: "varchar", length: 11 })
   mobilePhone: string;
 
   @Column({ type: "varchar", length: 10 })
@@ -31,7 +39,7 @@ export class VendorsAndBuyersModel {
   cep: string;
 
   @Column({ type: "varchar" })
-  address: string;
+  street: string;
 
   @Column({ type: "varchar" })
   number: string;
@@ -47,4 +55,16 @@ export class VendorsAndBuyersModel {
 
   @Column({ type: "varchar" })
   state: string;
+
+  @Column({type:'varchar'})
+  userId: string;
+
+  @ManyToOne(() => UsersModel, user => user.vendorsAndBuyers)
+  user?: UsersModel;
+
+  @CreateDateColumn({ type: "timestamp" })
+  createdAt?: Date;
+
+  @UpdateDateColumn({ type: "timestamp" })
+  updatedAt?: Date;
 }

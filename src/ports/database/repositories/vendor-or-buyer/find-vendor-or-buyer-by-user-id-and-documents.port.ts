@@ -1,8 +1,18 @@
-import { CreateOrFindUserRepositoryResponse } from "@/domain/types/database/repositories";
+import { VendorOrBuyer } from "@/domain/entities";
+import { InternalServerError } from "@/domain/errors";
+import { DocumentType } from "@/domain/types/entities";
+
+export namespace FindVendorOrBuyerByUserIdAndDocumentsRepositoryPort {
+  export type Params = {
+    userId: string;
+    document: string;
+  };
+
+  export type Response = VendorOrBuyer | undefined | InternalServerError;
+}
 
 export abstract class FindVendorOrBuyerByUserIdAndDocumentsRepositoryPort {
   abstract execute(
-    userId: string,
-    document: string
-  ): Promise<CreateOrFindUserRepositoryResponse>;
+    data: FindVendorOrBuyerByUserIdAndDocumentsRepositoryPort.Params
+  ): Promise<FindVendorOrBuyerByUserIdAndDocumentsRepositoryPort.Response>;
 }

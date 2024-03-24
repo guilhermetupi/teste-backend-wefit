@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { VendorsAndBuyersModel } from "./vendors-and-buyers.model";
 
 @Entity("users")
 export class UsersModel {
@@ -10,4 +11,7 @@ export class UsersModel {
 
   @Column({ type: "varchar" })
   password: string;
+
+  @OneToMany(() => VendorsAndBuyersModel, (vendorOrBuyer) => vendorOrBuyer.user)
+  vendorsAndBuyers: VendorsAndBuyersModel[];
 }

@@ -6,7 +6,7 @@ export class Document {
   }
 
   static create(
-    document: string,
+    document: string | undefined,
     required = true
   ): Document | undefined | InvalidParamError {
     const documentIsValid = Document.validate(document, required);
@@ -15,11 +15,11 @@ export class Document {
       return documentIsValid;
     }
 
-    return new Document(document);
+    return new Document(document as string);
   }
 
   static validate(
-    document: string,
+    document: string | undefined,
     required: boolean
   ): true | InvalidParamError | undefined {
     const documentIsNotProvided = !document || document.trim() === "";

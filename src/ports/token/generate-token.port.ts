@@ -1,7 +1,7 @@
 import { InternalServerError } from "@/domain/errors";
 
 export namespace GenerateTokenPort {
-  export type Param = string;
+  export type Param = Record<string, any>;
 
   export type Response =
     | {

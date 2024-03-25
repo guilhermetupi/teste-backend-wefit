@@ -7,12 +7,12 @@ export class GenerateTokenJwtAdapter
   extends JwtAdapter
   implements GenerateTokenPort
 {
-  execute(token: GenerateTokenPort.Param): GenerateTokenPort.Response {
+  execute(payload: GenerateTokenPort.Param): GenerateTokenPort.Response {
     try {
-      const accessToken = jwt.sign(token, this.secret, {
+      const accessToken = jwt.sign(payload, this.secret, {
         expiresIn: this.accessTokenExpiresIn,
       });
-      const refreshToken = jwt.sign(token, this.secret, {
+      const refreshToken = jwt.sign(payload, this.secret, {
         expiresIn: this.refreshTokenExpiresIn,
       });
 

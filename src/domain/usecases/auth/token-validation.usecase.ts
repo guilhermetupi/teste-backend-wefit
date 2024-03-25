@@ -1,13 +1,43 @@
 import { InternalServerError, UnauthorizedError } from "@/domain/errors";
+import { GenerateTokenPort, VerifyTokenPort } from "@/ports/token";
+import { TokenValidationUseCasePort } from "@/ports/usecases/auth";
 
-export namespace TokenValidationUseCasePort {
-  export type Param = string;
+export class TokenValidationUseCase implements TokenValidationUseCasePort {
+  constructor(
+    private readonly verifyTokenAdapter: VerifyTokenPort,
+    private readonly generateTokenAdapter: GenerateTokenPort
+  ) {}
 
-  export type Response = void | InternalServerError | UnauthorizedError;
-}
-
-export abstract class TokenValidationUseCasePort {
-  abstract execute(
+  execute(
     token: TokenValidationUseCasePort.Param
-  ): TokenValidationUseCasePort.Response;
+  ): TokenValidationUseCasePort.Response {
+    const tokenResponse = this.verifyTokenAdapter.execute(token);
+
+    if (tokenResponse instanceof UnauthorizedError) {
+      return tokenResponse;
+    }
+
+    if (tokenResponse.verified && !tokenResponse.valid) {
+      if (!tokenResponse.payload) {
+        return new UnauthorizedError();
+      }
+
+      const generatedToken = this.generateTokenAdapter.execute(
+        tokenResponse.payload
+      );
+
+      if (generatedToken instanceof InternalServerError) {
+        return new InternalServerError();
+      }
+
+      return {
+        tokens: generatedToken,
+        payload: tokenResponse.payload,
+      };
+    }
+
+    return {
+      payload: tokenResponse.payload as Record<string, any>,
+    };
+  }
 }

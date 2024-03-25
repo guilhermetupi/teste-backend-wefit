@@ -3,9 +3,10 @@ import { serialize } from "cookie";
 import { Environment } from "@/config/env";
 import { InternalServerError, UnauthorizedError } from "@/domain/errors";
 import { TokenValidationUseCasePort } from "@/ports/usecases/auth";
+import { MiddlewareHttpPort } from "@/ports/http";
 import { ExpressRequest, HttpStatusCode } from "@/types/http";
 
-export class AuthTokenExpressMiddlewareAdapter {
+export class AuthTokenExpressMiddlewareAdapter implements MiddlewareHttpPort {
   constructor(
     private readonly tokenValidationUseCase: TokenValidationUseCasePort
   ) {}

@@ -23,7 +23,7 @@ export class SignupUseCase implements SignupUseCasePort {
       return userId;
     }
 
-    const token = this.generateTokenAdapter.execute(userId);
+    const token = this.generateTokenAdapter.execute({ id: userId });
 
     return token;
   }

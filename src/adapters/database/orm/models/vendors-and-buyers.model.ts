@@ -9,7 +9,7 @@ import {
 } from "typeorm";
 import { UsersModel } from "./users.model";
 
-@Entity("vendors_and_buyers")
+// @Entity("vendors_and_buyers")
 export class VendorsAndBuyersModel {
   @PrimaryGeneratedColumn("uuid")
   id?: string;
@@ -59,8 +59,8 @@ export class VendorsAndBuyersModel {
   @Column({type:'varchar'})
   userId: string;
 
-  @ManyToOne(() => UsersModel, user => user.vendorsAndBuyers)
-  user?: UsersModel;
+  // @ManyToOne(() => UsersModel, user => user.vendorsAndBuyers)
+  // user?: UsersModel;
 
   @CreateDateColumn({ type: "timestamp" })
   createdAt?: Date;

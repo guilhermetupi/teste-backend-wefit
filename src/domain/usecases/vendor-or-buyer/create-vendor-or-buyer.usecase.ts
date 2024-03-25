@@ -87,10 +87,10 @@ export class CreateVendorOrBuyerUseCase
     document: string
   ): Promise<false | ConflictError> {
     const vendorOrBuyer =
-      await this.findVendorOrBuyerByUserIdAndDocumentsRepository.execute(
+      await this.findVendorOrBuyerByUserIdAndDocumentsRepository.execute({
         userId,
-        document
-      );
+        document,
+      });
 
     if (!vendorOrBuyer) {
       throw new ConflictError("Vendor or buyer already exists.");

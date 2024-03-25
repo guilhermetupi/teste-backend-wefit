@@ -20,7 +20,7 @@ export class SigninUseCase implements SigninUseCasePort {
 
     const errorOnCheckIfUserExists =
       user instanceof UnauthorizedError || user instanceof InternalServerError;
-      
+
     if (errorOnCheckIfUserExists) {
       return user as UnauthorizedError | InternalServerError;
     }
@@ -38,7 +38,7 @@ export class SigninUseCase implements SigninUseCasePort {
       return new UnauthorizedError();
     }
 
-    const token = this.generateTokenAdapter.execute(user.id as string);
+    const token = this.generateTokenAdapter.execute({ id: user.id });
 
     return token;
   }

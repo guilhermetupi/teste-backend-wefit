@@ -17,6 +17,6 @@ export class CreateVendorOrBuyerCommand {
     public readonly emailConfirmation: string,
     public readonly mobilePhone: Phone,
     public readonly telephone: Phone,
-    public readonly address: Address
+    public readonly address: Address,
   ) {}
 }

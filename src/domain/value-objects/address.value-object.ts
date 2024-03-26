@@ -6,7 +6,7 @@ export class Address {
     Object.freeze(this);
   }
 
-  static create(address: AddressType): Address {
+  static create(address: AddressType): Address | InvalidParamError {
     const addressIsValid = Address.isValid(address);
 
     if (addressIsValid instanceof InvalidParamError) {

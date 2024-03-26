@@ -5,7 +5,7 @@ export class Name {
     Object.freeze(this);
   }
 
-  static create(name: string): Name {
+  static create(name: string): Name | InvalidParamError {
     const nameIsValid = Name.isValid(name);
 
     if (nameIsValid instanceof InvalidParamError) {
@@ -17,6 +17,10 @@ export class Name {
 
   static isValid(name: string): true | InvalidParamError {
     const nameIsDefined = !!name;
+
+    if (!nameIsDefined) {
+      return new InvalidParamError("Name is required");
+    }
 
     const nameIsBigEnough = name.length >= 3;
 

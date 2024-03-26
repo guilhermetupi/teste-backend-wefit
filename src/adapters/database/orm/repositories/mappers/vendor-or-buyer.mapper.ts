@@ -27,11 +27,11 @@ export class VendorOrBuyerMapper {
       personType,
       cnpj,
       cpf as Document,
-      name,
+      name as Name,
       mobilePhone as Phone,
       telephone as Phone,
-      email,
-      address
+      email as Email,
+      address as Address
     );
   }
 

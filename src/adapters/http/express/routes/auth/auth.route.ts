@@ -16,7 +16,7 @@ export class AuthExpressRouteAdapter
   ) {}
 
   setup(router: Express.Router): void {
-    router.post("/auth/signin", async (req: Request, res: Response) => {
+    router.post(`/${this.name}/signin`, async (req: Request, res: Response) => {
       const { email, password } = req.body as SigninPresenterPort.Param;
 
       const { status, data, message } =
@@ -28,7 +28,7 @@ export class AuthExpressRouteAdapter
       res.status(status).json({ data, message });
     });
 
-    router.post("/auth/signup", async (req: Request, res: Response) => {
+    router.post(`/${this.name}/signup`, async (req: Request, res: Response) => {
       const { email, password, passwordConfirmation } =
         req.body as SignupPresenterPort.Param;
 

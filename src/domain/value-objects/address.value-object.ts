@@ -20,75 +20,74 @@ export class Address {
     const addressIsDefined = !!address;
 
     if (!addressIsDefined) {
-      return new InvalidParamError("Address is required");
+      return new InvalidParamError("Endereço é obrigatório.");
     }
 
     const addressStreetIsDefined = !!address.street;
 
     if (!addressStreetIsDefined) {
-      return new InvalidParamError("Street is required");
+      return new InvalidParamError("Logradouro é obrigatório.");
     }
 
     const addressStreetIsBigEnough = address.street.length >= 4;
 
     if (!addressStreetIsBigEnough) {
-      return new InvalidParamError("Street is too short");
+      return new InvalidParamError("Logradouro é muito curto.");
     }
 
-    const addressNeighborhoodIsDefined =
-      !!address.neighborhood;
+    const addressNeighborhoodIsDefined = !!address.neighborhood;
 
     if (!addressNeighborhoodIsDefined) {
-      return new InvalidParamError("Neighborhood is required");
+      return new InvalidParamError("Bairro é obrigatório.");
     }
 
     const addressNeighborhoodIsBigEnough = address.neighborhood.length >= 2;
 
     if (!addressNeighborhoodIsBigEnough) {
-      return new InvalidParamError("Neighborhood is too short");
+      return new InvalidParamError("Nome do bairro é muito curto.");
     }
 
     const addressNumberIsDefined =
       !!address.number || address.number.length > 0;
 
     if (!addressNumberIsDefined) {
-      return new InvalidParamError("Number is required");
+      return new InvalidParamError("Número é obrigatório.");
     }
 
     const addressCityIsDefined = !!address.city || address.city.length > 0;
 
     if (!addressCityIsDefined) {
-      return new InvalidParamError("City is required");
+      return new InvalidParamError("Cidade é obrigatória.");
     }
 
     const addressCityIsBigEnough = address.city.length >= 3;
 
     if (!addressCityIsBigEnough) {
-      return new InvalidParamError("City is too short");
+      return new InvalidParamError("Nome da cidade é muito curto.");
     }
 
     const addressStateIsDefined = !!address.state;
 
     if (!addressStateIsDefined) {
-      return new InvalidParamError("State is required");
+      return new InvalidParamError("Estado é obrigatório.");
     }
 
     const addressStateIsBigEnough = address.state.length >= 4;
 
     if (!addressStateIsBigEnough) {
-      return new InvalidParamError("State is too short");
+      return new InvalidParamError("Nome do estado é muito curto.");
     }
 
     const addressCepIsDefined = !!address.cep;
 
     if (!addressCepIsDefined) {
-      return new InvalidParamError("Zip code is required");
+      return new InvalidParamError("CEP é obrigatório.");
     }
 
     const addressCepIsInvalid = !/^\d{5}-\d{3}$/.test(address.cep);
 
     if (!addressCepIsInvalid) {
-      return new InvalidParamError("Zip code is invalid");
+      return new InvalidParamError("CEP inválido.");
     }
 
     return true;

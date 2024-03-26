@@ -6,7 +6,7 @@ import { ExpressRequest } from "@/types/http";
 export class VendorOrBuyerExpressRouteAdapter
   implements HttpRouteAdapterPort<Express.Router>
 {
-  public readonly name = "vendor-or-buyer";
+  public readonly name = "vendors-or-buyers";
 
   constructor(
     private readonly createVendorOrBuyerPresenterAdapter: CreateVendorOrBuyerPresenterPort,
@@ -15,7 +15,7 @@ export class VendorOrBuyerExpressRouteAdapter
 
   setup(router: Express.Router): void {
     router.post(
-      `/${this.name}`,
+      '/',
       this.authTokenExpressMiddlewareAdapter.execute,
       async (req: Request, res: Response) => {
         const { userId } = req as ExpressRequest;

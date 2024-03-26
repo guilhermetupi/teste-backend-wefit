@@ -19,7 +19,7 @@ export class Phone {
     const phoneIsUndefined = !phone || phone.trim() === "";
 
     if (phoneIsUndefined) {
-      return new InvalidParamError("Phone is required");
+      return new InvalidParamError("Telefone é obrigatório.");
     }
 
     const phoneIsValidMobilePhoneNumber =
@@ -27,8 +27,12 @@ export class Phone {
     const phoneIsValidLandlinePhoneNumber =
       /^(\(?\d{2}\)?\s)?(\d{4}\-\d{4})$/.test(phone);
 
-    if (!phoneIsValidMobilePhoneNumber || !phoneIsValidLandlinePhoneNumber) {
-      return new InvalidParamError("Phone is invalid");
+    if (!phoneIsValidMobilePhoneNumber) {
+      return new InvalidParamError("Número de celular inválido.");
+    }
+
+    if (!phoneIsValidLandlinePhoneNumber) {
+      return new InvalidParamError("Número de telefone fixo inválido.");
     }
 
     return true;

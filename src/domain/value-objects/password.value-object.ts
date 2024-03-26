@@ -24,7 +24,7 @@ export class Password {
     const passwordIsUndefined = !password || password.trim() === "";
 
     if (passwordIsUndefined) {
-      return new InvalidParamError("Password is required");
+      return new InvalidParamError("Senha é obrigatória.");
     }
 
     const passwordIsValid =
@@ -33,7 +33,7 @@ export class Password {
       );
 
     if (!passwordIsValid) {
-      return new InvalidParamError("Password is invalid");
+      return new InvalidParamError("Senha fraca. Use pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e símbolos.");
     }
 
     return true;

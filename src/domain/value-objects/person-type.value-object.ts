@@ -10,7 +10,7 @@ export class PersonType {
     const personTypeIsValid = PersonType.isValid(personType);
 
     if (!personTypeIsValid) {
-      return new InvalidParamError("Invalid person type");
+      return new InvalidParamError("Tipo de pessoa inválido.");
     }
     return new PersonType(personType as PersonTypeEnum);
   }

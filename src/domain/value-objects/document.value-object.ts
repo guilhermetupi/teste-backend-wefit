@@ -25,7 +25,7 @@ export class Document {
     const documentIsNotProvided = !document || document.trim() === "";
 
     if (required && documentIsNotProvided) {
-      return new InvalidParamError("Document is required.");
+      return new InvalidParamError("Documento é obrigatório.");
     }
 
     if (documentIsNotProvided) {
@@ -38,7 +38,7 @@ export class Document {
     );
 
     if (!documentIsValidCpf || !documentIsValidCnpj) {
-      return new InvalidParamError("Invalid document.");
+      return new InvalidParamError("Documento inválido.");
     }
 
     return true;

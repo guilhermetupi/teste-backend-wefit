@@ -19,13 +19,13 @@ export class Name {
     const nameIsDefined = !!name;
 
     if (!nameIsDefined) {
-      return new InvalidParamError("Name is required");
+      return new InvalidParamError("Nome é obrigatório.");
     }
 
     const nameIsBigEnough = name.length >= 3;
 
     if (!nameIsBigEnough) {
-      return new InvalidParamError("Name is too short");
+      return new InvalidParamError("Nome é muito curto.");
     }
 
     return true;

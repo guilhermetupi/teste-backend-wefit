@@ -19,13 +19,13 @@ export class Email {
     const emailIsUndefined = !email || email.trim() === "";
 
     if (emailIsUndefined) {
-      return new InvalidParamError("Email is required");
+      return new InvalidParamError("Email é obrigatório.");
     }
 
     const emailIsValid = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email);
 
     if (!emailIsValid) {
-      return new InvalidParamError("Email is invalid");
+      return new InvalidParamError("Email inválido.");
     }
 
     return true;

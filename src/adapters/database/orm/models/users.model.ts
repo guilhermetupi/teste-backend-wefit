@@ -12,6 +12,6 @@ export class UsersModel {
   @Column({ type: "varchar", select: false })
   password?: string;
 
-  // @OneToMany(() => VendorsAndBuyersModel, (vendorOrBuyer) => vendorOrBuyer.user)
-  // vendorsAndBuyers?: VendorsAndBuyersModel[];
+  @OneToMany(() => VendorsAndBuyersModel, (vendorOrBuyer) => vendorOrBuyer.user)
+  vendorsAndBuyers?: VendorsAndBuyersModel[];
 }

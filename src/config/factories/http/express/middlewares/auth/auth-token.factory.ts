@@ -1,11 +1,11 @@
 import { AuthTokenExpressMiddlewareAdapter } from "@/adapters/http/express/middlewares/auth";
-import { TokenValidationUseCaseFactory } from "@/config/factories/usecases/auth";
+import { VerifyTokenJwtFactory } from "@/config/factories/token/jsonwebtoken";
 import { MiddlewareHttpPort } from "@/ports/http";
 
 export class AuthTokenExpressMiddlewareAdapterFactory {
   static create(): MiddlewareHttpPort {
-    const tokenValidationUseCase = TokenValidationUseCaseFactory.create();
+    const verifyTokenJwt = VerifyTokenJwtFactory.create();
 
-    return new AuthTokenExpressMiddlewareAdapter(tokenValidationUseCase);
+    return new AuthTokenExpressMiddlewareAdapter(verifyTokenJwt);
   }
 }

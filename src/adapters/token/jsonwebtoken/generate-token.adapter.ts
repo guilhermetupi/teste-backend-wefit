@@ -12,14 +12,8 @@ export class GenerateTokenJwtAdapter
       const accessToken = jwt.sign(payload, this.secret, {
         expiresIn: this.accessTokenExpiresIn,
       });
-      const refreshToken = jwt.sign(payload, this.secret, {
-        expiresIn: this.refreshTokenExpiresIn,
-      });
 
-      return {
-        accessToken,
-        refreshToken,
-      };
+      return { accessToken };
     } catch (error) {
       return new InternalServerError();
     }

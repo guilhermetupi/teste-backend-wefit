@@ -1,30 +1,30 @@
 import { NextFunction, Response } from "express";
-import { serialize } from "cookie";
-import { Environment } from "@/config/env";
 import { InternalServerError, UnauthorizedError } from "@/domain/errors";
-import { TokenValidationUseCasePort } from "@/ports/usecases/auth";
 import { MiddlewareHttpPort } from "@/ports/http";
 import { ExpressRequest, HttpStatusCode } from "@/types/http";
+import { VerifyTokenPort } from "@/ports/token";
 
 export class AuthTokenExpressMiddlewareAdapter implements MiddlewareHttpPort {
-  constructor(
-    private readonly tokenValidationUseCase: TokenValidationUseCasePort
-  ) {}
+  constructor(private readonly verifyTokenAdapter: VerifyTokenPort) {}
 
   async execute(
     req: ExpressRequest,
     res: Response,
     next: NextFunction
   ): Promise<void | Response> {
-    const token = req.headers.authorization;
+    const bearerToken = req.headers.authorization;
+    const token = bearerToken?.split(" ")[1];
 
     if (!token) {
+      console.log(HttpStatusCode.UNAUTHORIZED, 26);
       return res
         .status(HttpStatusCode.UNAUTHORIZED)
         .json({ message: "Unauthorized" });
     }
 
-    const tokenResponse = this.tokenValidationUseCase.execute(token);
+    const tokenResponse = this.verifyTokenAdapter.execute<{ id: string }>(
+      token
+    );
 
     if (tokenResponse instanceof UnauthorizedError) {
       return res
@@ -38,63 +38,8 @@ export class AuthTokenExpressMiddlewareAdapter implements MiddlewareHttpPort {
         .json({ message: tokenResponse.message });
     }
 
-    if (tokenResponse?.tokens) {
-      const { accessTokenExpiresIn, refreshTokenExpiresIn } =
-        Environment.tokenData;
-
-      const accessTokenSerialized = this.generateSerializedTokenCookie(
-        tokenResponse.tokens?.accessToken as string,
-        accessTokenExpiresIn,
-        "accessToken"
-      );
-      const refreshTokenSerialized = this.generateSerializedTokenCookie(
-        tokenResponse.tokens?.refreshToken as string,
-        refreshTokenExpiresIn,
-        "refreshToken"
-      );
-
-      res.setHeader("Set-Cookie", [
-        accessTokenSerialized,
-        refreshTokenSerialized,
-      ]);
-    }
-
-    req.userId = tokenResponse.payload?.id;
+    req.userId = tokenResponse.id;
 
     next();
-  }
-
-  private generateSerializedTokenCookie(
-    token: string,
-    expiration: string,
-    tokenName: string
-  ): string {
-    const maxAge = this.convertTokenExpirationToCookieMaxAge(expiration);
-
-    return serialize(tokenName, token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      maxAge,
-      path: "/",
-    });
-  }
-
-  private convertTokenExpirationToCookieMaxAge(expiration: string): number {
-    const expirationNumber = Number(expiration.slice(0, -1));
-    const expirationType = expiration.slice(-1);
-
-    switch (expirationType) {
-      case "s":
-        return expirationNumber;
-      case "m":
-        return expirationNumber * 60;
-      case "h":
-        return expirationNumber * 60 * 60;
-      case "d":
-        return expirationNumber * 60 * 60 * 24;
-      default:
-        return -1;
-    }
   }
 }

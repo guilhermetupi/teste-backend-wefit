@@ -6,7 +6,6 @@ export namespace GenerateTokenPort {
   export type Response =
     | {
         accessToken: string;
-        refreshToken: string;
       }
     | InternalServerError;
 }

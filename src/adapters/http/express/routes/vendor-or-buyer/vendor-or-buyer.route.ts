@@ -11,11 +11,13 @@ export class VendorOrBuyerExpressRouteAdapter
   constructor(
     private readonly createVendorOrBuyerPresenterAdapter: CreateVendorOrBuyerPresenterPort,
     private readonly authTokenExpressMiddlewareAdapter: MiddlewareHttpPort
-  ) {}
+  ) {
+    console.log(authTokenExpressMiddlewareAdapter);
+  }
 
   setup(router: Express.Router): void {
     router.post(
-      '/',
+      "/",
       this.authTokenExpressMiddlewareAdapter.execute,
       async (req: Request, res: Response) => {
         const { userId } = req as ExpressRequest;

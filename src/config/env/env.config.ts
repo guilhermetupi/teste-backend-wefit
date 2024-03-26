@@ -26,7 +26,6 @@ export class Environment {
     return {
       secret: process.env.TOKEN_SECRET || "secret",
       accessTokenExpiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN || "1h",
-      refreshTokenExpiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN || "1d",
     };
   }
 

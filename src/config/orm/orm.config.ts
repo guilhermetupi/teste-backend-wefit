@@ -4,17 +4,22 @@ import { Environment } from "../env";
 import { NODE_ENV } from "@/types/environment";
 
 function getDataSource() {
+  const { database, host, password, port, username } =
+    Environment.databaseConfig;
   const appDataSouceOptions: DataSourceOptions = {
-    type: "postgres",
-    host: "localhost",
-    port: 5432,
-    username: "postgres",
-    password: "postgres",
-    database: "balance",
-    entities: [__dirname + "/../adapters/orm/models/**/*.model{.ts,.js}"],
-    migrations: [__dirname + "/../adapters/orm/migrations/**/*{.ts,.js}"],
+    host,
+    port,
+    username,
+    password,
+    database,
+    type: "mysql",
+    entities: [
+      __dirname + "/../../adapters/database/orm/models/**/*.model{.ts,.js}",
+    ],
+    migrations: [
+      __dirname + "/../../adapters/database/orm/migrations/**/*{.ts,.js}",
+    ],
     namingStrategy: new SnakeNamingStrategy(),
-    useUTC: true,
   };
 
   const integrationTestDataSouceOptions: DataSourceOptions = {

@@ -8,7 +8,7 @@
     "build": "./node_modules/.bin/rimraf dist && ./node_modules/.bin/tsc",
     "test": "./node_modules/.bin/jest --runInBand --forceExit --detectOpenHandles",
     "test:coverage": "npm run test -- --coverage",
-    "orm:init": "npm run build && ./node_modules/.bin/typeorm -d ./dist/src/config/orm/orm.config.js",
+    "orm:init": "npm run build && ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm -d ./src/config/orm/orm.config.ts",
     "migration:generate": "npm run orm:init migration:generate",
     "migration:run": "npm run orm:init migration:run",
     "schema:drop": "npm run orm:init schema:drop"
@@ -32,6 +32,7 @@
     "@types/express": "^4.17.13",
     "@types/jest": "^29.5.12",
     "@types/jsonwebtoken": "^9.0.6",
+    "rimraf": "^5.0.5",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^1.1.8",

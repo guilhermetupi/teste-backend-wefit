@@ -1,13 +1,7 @@
-import express from "express";
+import "reflect-metadata";
+import "dotenv/config";
+import { ExpressHttpServerAdapterFactory } from "./config/factories/http/express/express.factory";
 
-const app = express();
+const httpServer = ExpressHttpServerAdapterFactory.create();
 
-const port = process.env.PORT || 4568;
-
-app.get("/ping", (req, res) => {
-  return res.send("pong");
-});
-
-app.listen(port, () => {
-  console.log(`Escutando na porta ${port}`);
-});
+httpServer.execute();

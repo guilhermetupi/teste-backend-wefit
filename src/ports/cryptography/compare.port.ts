@@ -4,11 +4,11 @@ export namespace CompareCryptographyPort {
     hashed: string;
   };
 
-  export type Result = boolean;
+  export type Response = boolean;
 }
 
 export abstract class CompareCryptographyPort {
   abstract execute(
     data: CompareCryptographyPort.Params
-  ): CompareCryptographyPort.Result;
+  ): CompareCryptographyPort.Response;
 }

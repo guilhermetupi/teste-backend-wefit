@@ -10,4 +10,5 @@ export type CreateVendorOrBuyerDto = {
   mobilePhone: string;
   telephone: string;
   address: AddressType;
+  acceptTerms: boolean;
 };

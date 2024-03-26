@@ -29,6 +29,15 @@ export class CreateVendorOrBuyerPresenterAdapter
     userId,
   }: CreateVendorOrBuyerPresenterPort.Param): Promise<CreateVendorOrBuyerPresenterPort.Response> {
     try {
+      const termsNotAccepted = !vendorOrBuyer.acceptTerms;
+
+      if (termsNotAccepted) {
+        return {
+          status: HttpStatusCode.BAD_REQUEST,
+          message: "You must accept the terms to proceed",
+        };
+      }
+
       const {
         address,
         cnpj,

@@ -1,5 +1,4 @@
-import { authTokenExpressMiddlewareAdapter } from "./../../../../../config/factories/http/express/middlewares/auth/auth-token.factory";
-import Express, { NextFunction, Request, Response } from "express";
+import Express, { Request, Response } from "express";
 import { HttpRouteAdapterPort, MiddlewareHttpPort } from "@/ports/http";
 import { CreateVendorOrBuyerPresenterPort } from "@/ports/http/presenters/vendor-or-buyer";
 import { ExpressRequest } from "@/types/http";

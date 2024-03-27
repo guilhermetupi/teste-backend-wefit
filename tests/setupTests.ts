@@ -10,6 +10,7 @@ jest.mock("express", () => {
   express.json = jest.fn();
   express.Router = jest.fn(() => ({
     use: jest.fn(),
+    post: jest.fn(),
   }));
 
   return express;

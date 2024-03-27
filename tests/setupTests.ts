@@ -1,4 +1,5 @@
 import "dotenv/config";
+import { verify } from "jsonwebtoken";
 import "reflect-metadata";
 
 jest.mock("express", () => {
@@ -17,3 +18,8 @@ jest.mock("express", () => {
 });
 
 jest.mock("cors", () => jest.fn());
+
+jest.mock("jsonwebtoken", () => ({
+  sign: jest.fn(),
+  verify: jest.fn(),
+}));

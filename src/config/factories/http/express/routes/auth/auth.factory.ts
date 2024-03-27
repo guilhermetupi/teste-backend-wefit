@@ -5,7 +5,6 @@ import { signinPresenter, signupPresenter } from "../../../presenters/auth";
 
 class AuthExpressRouteAdapterFactory {
   static create(): HttpRouteAdapterPort<Express.Router> {
-    console.log("AuthExpressRouteAdapterFactory.create()");
     return new AuthExpressRouteAdapter(signinPresenter, signupPresenter);
   }
 }

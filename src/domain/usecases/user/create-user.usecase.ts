@@ -1,5 +1,9 @@
 import { User } from "@/domain/entities";
-import { ConflictError, InternalServerError, InvalidParamError } from "@/domain/errors";
+import {
+  ConflictError,
+  InternalServerError,
+  InvalidParamError,
+} from "@/domain/errors";
 import { Password } from "@/domain/value-objects";
 import { EncryptCryptographyPort } from "@/ports/cryptography";
 import {
@@ -29,7 +33,7 @@ export class CreateUserUseCase implements CreateUserUseCasePort {
     const hashedPassword = this.encrypterAdapter.execute(user.password.value);
     const hashedPasswordValueObject = Password.create(hashedPassword, false);
 
-    if (hashedPasswordValueObject instanceof InvalidParamError) {
+    if (hashedPasswordValueObject instanceof Error) {
       return hashedPasswordValueObject;
     }
 
@@ -38,9 +42,11 @@ export class CreateUserUseCase implements CreateUserUseCasePort {
       hashedPasswordValueObject
     );
 
-    const createdUser = await this.createUserRepository.execute(userWithHashedPassword);
+    const createdUser = await this.createUserRepository.execute(
+      userWithHashedPassword
+    );
 
-    if (createdUser instanceof InternalServerError) {
+    if (createdUser instanceof Error) {
       return new InternalServerError();
     }
 
@@ -54,12 +60,12 @@ export class CreateUserUseCase implements CreateUserUseCasePort {
       email
     );
 
-    if (userAlreadyExists instanceof InternalServerError) {
+    if (userAlreadyExists instanceof Error) {
       return new InternalServerError();
     }
 
     if (userAlreadyExists) {
-      return new ConflictError("User already exists.");
+      return new ConflictError("Usuário já cadastrado.");
     }
 
     return false;

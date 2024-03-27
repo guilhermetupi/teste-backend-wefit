@@ -40,7 +40,6 @@ export class UserMapper {
       );
 
       if (passwordValueObject instanceof Error) {
-        console.log(passwordValueObject);
         throw passwordValueObject;
       }
 

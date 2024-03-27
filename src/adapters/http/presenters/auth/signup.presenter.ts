@@ -9,6 +9,8 @@ import {
   InvalidParamError,
   UnauthorizedError,
 } from "@/domain/errors";
+import { ErrorType } from "@/types/error";
+import { AuthResponse } from "@/types/auth";
 
 export class SignupPresenterAdapter implements SignupPresenterPort {
   constructor(private readonly signupUseCase: SignupUseCasePort) {}
@@ -17,36 +19,39 @@ export class SignupPresenterAdapter implements SignupPresenterPort {
     data: SignupPresenterPort.Param
   ): Promise<SignupPresenterPort.Response> {
     try {
+      const passwordIsDifferent = data.password !== data.passwordConfirmation;
+
+      if (passwordIsDifferent) {
+        return {
+          status: HttpStatusCode.BAD_REQUEST,
+          message: "Senhas não conferem.",
+        };
+      }
+
       const { email, password } = this.createObjectValues(data);
 
       const response = await this.signupUseCase.execute({
         email,
         password,
-        passwordConfirmation: data.passwordConfirmation,
       });
 
-      if (response instanceof InternalServerError) {
+      const responseHasError = response instanceof Error;
+
+      if (responseHasError && response.name === ErrorType.INTERNAL_SERVER) {
         return {
           status: HttpStatusCode.INTERNAL_SERVER_ERROR,
           message: response.message,
         };
       }
 
-      if (response instanceof UnauthorizedError) {
-        return {
-          status: HttpStatusCode.UNAUTHORIZED,
-          message: response.message,
-        };
-      }
-
-      if (response instanceof ConflictError) {
+      if (responseHasError && response.name === ErrorType.CONFLICT) {
         return {
           status: HttpStatusCode.CONFLICT,
           message: response.message,
         };
       }
 
-      if (response instanceof InvalidParamError) {
+      if (responseHasError && response.name === ErrorType.INVALID_PARAM) {
         return {
           status: HttpStatusCode.BAD_REQUEST,
           message: response.message,
@@ -55,7 +60,7 @@ export class SignupPresenterAdapter implements SignupPresenterPort {
 
       return {
         status: HttpStatusCode.CREATED,
-        data: response,
+        data: response as AuthResponse,
       };
     } catch (error) {
       return {

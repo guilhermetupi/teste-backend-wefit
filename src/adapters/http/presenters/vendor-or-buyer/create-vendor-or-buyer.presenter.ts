@@ -61,12 +61,21 @@ export class CreateVendorOrBuyerPresenterAdapter
         };
       }
 
+      const vendorOrBuyerEmailIsDifferentFromEmailConfirmation =
+        vendorOrBuyer.email !== vendorOrBuyer.emailConfirmation;
+
+      if (vendorOrBuyerEmailIsDifferentFromEmailConfirmation) {
+        return {
+          status: HttpStatusCode.BAD_REQUEST,
+          message: "Email e confirmação de email não correspondem.",
+        };
+      }
+
       const {
         address,
         cnpj,
         cpf,
         email,
-        emailConfirmation,
         mobilePhone,
         name,
         personType,
@@ -79,7 +88,6 @@ export class CreateVendorOrBuyerPresenterAdapter
         cnpj,
         cpf,
         email,
-        emailConfirmation,
         mobilePhone,
         telephone,
         address
@@ -146,8 +154,6 @@ export class CreateVendorOrBuyerPresenterAdapter
       throw email;
     }
 
-    const emailConfirmation = vendorOrBuyer.emailConfirmation;
-
     const mobilePhone = Phone.create(vendorOrBuyer.mobilePhone);
 
     if (
@@ -178,7 +184,6 @@ export class CreateVendorOrBuyerPresenterAdapter
       cnpj: cnpj as undefined | Document,
       cpf: cpf as Document,
       email: email as Email,
-      emailConfirmation,
       mobilePhone: mobilePhone as Phone,
       telephone: telephone as Phone,
       address: address as Address,

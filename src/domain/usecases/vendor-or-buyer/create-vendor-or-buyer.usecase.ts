@@ -28,20 +28,11 @@ export class CreateVendorOrBuyerUseCase
 
     const vendorOrBuyerExists = await this.checkIfVendorOrBuyerExists(
       userId,
-      vendorOrBuyer.cnpj?.value || vendorOrBuyer.cpf?.value
+      vendorOrBuyer.cnpj?.value || (vendorOrBuyer.cpf.value as string)
     );
 
     if (vendorOrBuyerExists instanceof Error) {
       return vendorOrBuyerExists;
-    }
-
-    const emailConfirmationIsDifferent =
-      vendorOrBuyer.email.value !== vendorOrBuyer.emailConfirmation;
-
-    if (emailConfirmationIsDifferent) {
-      return new ConflictError(
-        "Email and email confirmation must be the same."
-      );
     }
 
     const newVendorOrBuyer = new VendorOrBuyer(
@@ -72,7 +63,7 @@ export class CreateVendorOrBuyerUseCase
     const user = await this.findUserByIdRepository.execute(userId);
 
     if (!user) {
-      throw new NotFoundError("User not found");
+      return new NotFoundError("Usuário não encontrado.");
     }
 
     return true;
@@ -89,7 +80,7 @@ export class CreateVendorOrBuyerUseCase
       });
 
     if (vendorOrBuyer) {
-      throw new ConflictError("Vendor or buyer already exists.");
+      return new ConflictError("Vendedor ou comprador já cadastrado.");
     }
 
     return false;

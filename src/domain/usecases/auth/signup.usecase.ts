@@ -33,18 +33,6 @@ export class SignupUseCase implements SignupUseCasePort {
   ): Promise<string | InvalidParamError | ConflictError | InternalServerError> {
     const userId = await this.createUserUseCase.execute(createUserCommand);
 
-    if (userId instanceof InvalidParamError) {
-      return userId;
-    }
-
-    if (userId instanceof ConflictError) {
-      return userId;
-    }
-
-    if (userId instanceof InternalServerError) {
-      return userId;
-    }
-
     return userId;
   }
 }

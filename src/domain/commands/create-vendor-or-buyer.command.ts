@@ -14,7 +14,6 @@ export class CreateVendorOrBuyerCommand {
     public readonly cnpj: Document | undefined,
     public readonly cpf: Document,
     public readonly email: Email,
-    public readonly emailConfirmation: string,
     public readonly mobilePhone: Phone,
     public readonly telephone: Phone,
     public readonly address: Address,

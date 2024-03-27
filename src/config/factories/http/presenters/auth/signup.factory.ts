@@ -4,9 +4,6 @@ import { SignupPresenterPort } from "@/ports/http/presenters/auth";
 
 class SignupPresenterFactory {
   static create(): SignupPresenterPort {
-    console.group();
-    console.log("SignupPresenterFactory.create()");
-    console.groupEnd();
     return new SignupPresenterAdapter(signupUseCase);
   }
 }

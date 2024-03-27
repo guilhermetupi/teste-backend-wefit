@@ -18,8 +18,7 @@ export class SigninUseCase implements SigninUseCasePort {
   }: SigninUseCasePort.Param): Promise<SigninUseCasePort.Response> {
     const user = await this.checkIfUserExists(email);
 
-    const errorOnCheckIfUserExists =
-      user instanceof UnauthorizedError || user instanceof InternalServerError;
+    const errorOnCheckIfUserExists = user instanceof Error;
 
     if (errorOnCheckIfUserExists) {
       return user as UnauthorizedError | InternalServerError;

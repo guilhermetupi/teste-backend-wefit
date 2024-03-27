@@ -32,6 +32,7 @@ export class CreateVendorOrBuyerPresenterAdapter
   }: CreateVendorOrBuyerPresenterPort.Param): Promise<CreateVendorOrBuyerPresenterPort.Response> {
     try {
       const userIdNotProvided = !userId;
+      console.log(userId);
 
       if (userIdNotProvided) {
         return {
@@ -193,6 +194,7 @@ export class CreateVendorOrBuyerPresenterAdapter
   private makeErrorResponse(
     response: InvalidParamError | ConflictError | InternalServerError
   ) {
+    console.log(response.name);
     switch (response.name) {
       case ErrorType.UNAUTHORIZED:
         return {
@@ -207,6 +209,11 @@ export class CreateVendorOrBuyerPresenterAdapter
       case ErrorType.CONFLICT:
         return {
           status: HttpStatusCode.CONFLICT,
+          message: response.message,
+        };
+      case ErrorType.NOT_FOUND:
+        return {
+          status: HttpStatusCode.NOT_FOUND,
           message: response.message,
         };
       case ErrorType.INTERNAL_SERVER:

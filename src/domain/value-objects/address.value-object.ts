@@ -9,7 +9,7 @@ export class Address {
   static create(address: AddressType): Address | InvalidParamError {
     const addressIsValid = Address.isValid(address);
 
-    if (addressIsValid instanceof InvalidParamError) {
+    if (addressIsValid instanceof Error) {
       throw addressIsValid;
     }
 
@@ -84,9 +84,9 @@ export class Address {
       return new InvalidParamError("CEP é obrigatório.");
     }
 
-    const addressCepIsInvalid = !/^\d{5}-\d{3}$/.test(address.cep);
+    const addressCepIsValid = address.cep.replace(/\D/g, "").length === 8;
 
-    if (!addressCepIsInvalid) {
+    if (!addressCepIsValid) {
       return new InvalidParamError("CEP inválido.");
     }
 

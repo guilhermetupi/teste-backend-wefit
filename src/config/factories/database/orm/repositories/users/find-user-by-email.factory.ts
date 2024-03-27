@@ -2,8 +2,11 @@ import { TypeOrmFindUserByEmailRepository } from "@/adapters/database/orm/reposi
 import { AppDataSource } from "@/config/orm";
 import { FindUserByEmailRepositoryPort } from "@/ports/database/repositories/user";
 
-export class TypeOrmFindUserByEmailRepositoryFactory {
+class TypeOrmFindUserByEmailRepositoryFactory {
   static create(): FindUserByEmailRepositoryPort {
     return new TypeOrmFindUserByEmailRepository(AppDataSource);
   }
 }
+
+export const typeOrmFindUserByEmailRepository =
+  TypeOrmFindUserByEmailRepositoryFactory.create();

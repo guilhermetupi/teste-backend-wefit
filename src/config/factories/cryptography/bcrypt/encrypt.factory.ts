@@ -1,7 +1,10 @@
 import { BcryptEncryptCryptographyAdapter } from "@/adapters/cryptography/bcrypt";
 
-export class BcryptEncryptCryptographyFactory {
+class BcryptEncryptCryptographyFactory {
   static create() {
     return new BcryptEncryptCryptographyAdapter();
   }
 }
+
+export const bcryptEncryptCryptography =
+  BcryptEncryptCryptographyFactory.create();

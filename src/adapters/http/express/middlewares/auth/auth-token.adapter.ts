@@ -1,8 +1,9 @@
 import { NextFunction, Response } from "express";
-import { InternalServerError, UnauthorizedError } from "@/domain/errors";
 import { MiddlewareHttpPort } from "@/ports/http";
 import { ExpressRequest, HttpStatusCode } from "@/types/http";
 import { VerifyTokenPort } from "@/ports/token";
+import { TokenAuthPayload } from "@/types/token";
+import { ErrorType } from "@/types/error";
 
 export class AuthTokenExpressMiddlewareAdapter implements MiddlewareHttpPort {
   constructor(private readonly verifyTokenAdapter: VerifyTokenPort) {}
@@ -16,29 +17,31 @@ export class AuthTokenExpressMiddlewareAdapter implements MiddlewareHttpPort {
     const token = bearerToken?.split(" ")[1];
 
     if (!token) {
-      console.log(HttpStatusCode.UNAUTHORIZED, 26);
       return res
         .status(HttpStatusCode.UNAUTHORIZED)
         .json({ message: "Unauthorized" });
     }
 
-    const tokenResponse = this.verifyTokenAdapter.execute<{ id: string }>(
-      token
-    );
+    const tokenResponse =
+      this.verifyTokenAdapter.execute<TokenAuthPayload>(token);
+    const tokenResponseIsError = tokenResponse instanceof Error;
 
-    if (tokenResponse instanceof UnauthorizedError) {
+    if (tokenResponseIsError && tokenResponse.name === ErrorType.UNAUTHORIZED) {
       return res
         .status(HttpStatusCode.UNAUTHORIZED)
         .json({ message: tokenResponse.message });
     }
 
-    if (tokenResponse instanceof InternalServerError) {
+    if (
+      tokenResponseIsError &&
+      tokenResponse.name === ErrorType.INTERNAL_SERVER
+    ) {
       return res
         .status(HttpStatusCode.INTERNAL_SERVER_ERROR)
         .json({ message: tokenResponse.message });
     }
 
-    req.userId = tokenResponse.id;
+    req.userId = (tokenResponse as TokenAuthPayload).id;
 
     next();
   }

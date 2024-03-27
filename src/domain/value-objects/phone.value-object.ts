@@ -5,34 +5,31 @@ export class Phone {
     Object.freeze(this);
   }
 
-  static create(phone: string): Phone | InvalidParamError {
-    const phoneIsValid = Phone.validate(phone);
+  static create(phone: string, isMobile = true): Phone | InvalidParamError {
+    const phoneIsValid = Phone.validate(phone, isMobile);
 
-    if (!phoneIsValid) {
+    if (phoneIsValid instanceof Error) {
       return phoneIsValid;
     }
 
     return new Phone(phone);
   }
 
-  static validate(phone: string): true | InvalidParamError {
+  static validate(phone: string, isMobile: boolean): true | InvalidParamError {
     const phoneIsUndefined = !phone || phone.trim() === "";
 
     if (phoneIsUndefined) {
       return new InvalidParamError("Telefone é obrigatório.");
     }
+    const phoneLength = isMobile ? 11 : 10;
+    const phoneIsValid = phone.replace(/\D/g, "").length === phoneLength;
 
-    const phoneIsValidMobilePhoneNumber =
-      /^(\(?\d{2}\)?\s)?(\d{4,5}\-\d{4})$/.test(phone);
-    const phoneIsValidLandlinePhoneNumber =
-      /^(\(?\d{2}\)?\s)?(\d{4}\-\d{4})$/.test(phone);
-
-    if (!phoneIsValidMobilePhoneNumber) {
-      return new InvalidParamError("Número de celular inválido.");
-    }
-
-    if (!phoneIsValidLandlinePhoneNumber) {
-      return new InvalidParamError("Número de telefone fixo inválido.");
+    if (!phoneIsValid) {
+      return new InvalidParamError(
+        isMobile
+          ? "Número de celular inválido."
+          : "Número de telefone fixo inválido."
+      );
     }
 
     return true;

@@ -1,8 +1,4 @@
-import {
-  ConflictError,
-  InternalServerError,
-  NotFoundError,
-} from "@/domain/errors";
+import { ConflictError, NotFoundError } from "@/domain/errors";
 import { CreateVendorOrBuyerUseCasePort } from "@/ports/usecases/vendor-or-buyer";
 import { FindUserByIdRepositoryPort } from "@/ports/database/repositories/user";
 import {
@@ -26,7 +22,7 @@ export class CreateVendorOrBuyerUseCase
   }: CreateVendorOrBuyerUseCasePort.Param): Promise<CreateVendorOrBuyerUseCasePort.Response> {
     const userExists = await this.checkIfUserExists(userId);
 
-    if (userExists instanceof NotFoundError) {
+    if (userExists instanceof Error) {
       return userExists;
     }
 
@@ -35,7 +31,7 @@ export class CreateVendorOrBuyerUseCase
       vendorOrBuyer.cnpj?.value || vendorOrBuyer.cpf?.value
     );
 
-    if (vendorOrBuyerExists instanceof ConflictError) {
+    if (vendorOrBuyerExists instanceof Error) {
       return vendorOrBuyerExists;
     }
 
@@ -65,7 +61,7 @@ export class CreateVendorOrBuyerUseCase
         vendorOrBuyer: newVendorOrBuyer,
       });
 
-    if (createdVendorOrBuyer instanceof InternalServerError) {
+    if (createdVendorOrBuyer instanceof Error) {
       return createdVendorOrBuyer;
     }
   }
@@ -92,7 +88,7 @@ export class CreateVendorOrBuyerUseCase
         document,
       });
 
-    if (!vendorOrBuyer) {
+    if (vendorOrBuyer) {
       throw new ConflictError("Vendor or buyer already exists.");
     }
 

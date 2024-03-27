@@ -2,8 +2,11 @@ import { TypeOrmCreateUserRepository } from "@/adapters/database/orm/repositorie
 import { AppDataSource } from "@/config/orm";
 import { CreateUserRepositoryPort } from "@/ports/database/repositories/user";
 
-export class TypeOrmCreateUserRepositoryFactory {
+class TypeOrmCreateUserRepositoryFactory {
   static create(): CreateUserRepositoryPort {
     return new TypeOrmCreateUserRepository(AppDataSource);
   }
 }
+
+export const typeOrmCreateUserRepository =
+  TypeOrmCreateUserRepositoryFactory.create();

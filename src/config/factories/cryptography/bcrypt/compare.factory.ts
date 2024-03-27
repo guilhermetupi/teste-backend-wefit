@@ -1,7 +1,10 @@
 import { BcryptCompareCryptographyAdapter } from "@/adapters/cryptography/bcrypt";
 
-export class BcryptCompareCryptographyFactory {
+class BcryptCompareCryptographyFactory {
   static create() {
     return new BcryptCompareCryptographyAdapter();
   }
 }
+
+export const bcryptCompareCryptography =
+  BcryptCompareCryptographyFactory.create();

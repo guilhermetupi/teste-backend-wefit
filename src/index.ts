@@ -1,7 +1,4 @@
-import "reflect-metadata";
-import "dotenv/config";
-import { ExpressHttpServerAdapterFactory } from "./config/factories/http/express";
+import { expressHttpServerAdapter } from "./config/factories/http/express";
 
-const httpServer = ExpressHttpServerAdapterFactory.create();
-
-httpServer.execute();
+console.log("index.ts: expressHttpServerAdapter.execute()");
+expressHttpServerAdapter.execute();

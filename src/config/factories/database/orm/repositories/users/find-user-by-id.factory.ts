@@ -2,8 +2,11 @@ import { TypeOrmFindUserByIdRepository } from "@/adapters/database/orm/repositor
 import { AppDataSource } from "@/config/orm";
 import { FindUserByIdRepositoryPort } from "@/ports/database/repositories/user";
 
-export class TypeOrmFindUserByIdRepositoryFactory {
+class TypeOrmFindUserByIdRepositoryFactory {
   static create(): FindUserByIdRepositoryPort {
     return new TypeOrmFindUserByIdRepository(AppDataSource);
   }
 }
+
+export const typeOrmFindUserByIdRepository =
+  TypeOrmFindUserByIdRepositoryFactory.create();

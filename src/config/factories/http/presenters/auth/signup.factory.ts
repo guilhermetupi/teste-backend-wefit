@@ -1,11 +1,14 @@
 import { SignupPresenterAdapter } from "@/adapters/http/presenters/auth";
-import { SignupUseCaseFactory } from "@/config/factories/usecases/auth";
+import { signupUseCase } from "@/config/factories/usecases/auth";
 import { SignupPresenterPort } from "@/ports/http/presenters/auth";
 
-export class SignupPresenterFactory {
+class SignupPresenterFactory {
   static create(): SignupPresenterPort {
-    const signupUseCase = SignupUseCaseFactory.create();
-
+    console.group();
+    console.log("SignupPresenterFactory.create()");
+    console.groupEnd();
     return new SignupPresenterAdapter(signupUseCase);
   }
 }
+
+export const signupPresenter = SignupPresenterFactory.create();

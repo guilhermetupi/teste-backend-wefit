@@ -2,8 +2,11 @@ import { TypeOrmCreateVendorOrBuyerRepository } from "@/adapters/database/orm/re
 import { AppDataSource } from "@/config/orm";
 import { CreateVendorOrBuyerRepositoryPort } from "@/ports/database/repositories/vendor-or-buyer";
 
-export class TypeOrmCreateVendorOrBuyerRepositoryFactory {
+class TypeOrmCreateVendorOrBuyerRepositoryFactory {
   static create(): CreateVendorOrBuyerRepositoryPort {
     return new TypeOrmCreateVendorOrBuyerRepository(AppDataSource);
   }
 }
+
+export const typeOrmCreateVendorOrBuyerRepository =
+  TypeOrmCreateVendorOrBuyerRepositoryFactory.create();

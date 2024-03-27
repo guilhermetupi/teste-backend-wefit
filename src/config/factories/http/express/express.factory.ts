@@ -1,17 +1,19 @@
 import { ExpressHttpServerAdapter } from "@/adapters/http/express";
 import { HttpServerAdapterPort } from "@/ports/http";
-import { TypeOrmDatabaseAdapterFactory } from "../../database/orm";
-import { AuthExpressRouteAdapterFactory } from "./routes/auth";
-import { VendorOrBuyerExpressRouteAdapterFactory } from "./routes/vendor-or-buyer";
+import { typeOrmDatabaseAdapter } from "../../database/orm";
+import { authExpressRouteAdapter } from "./routes/auth";
+import { vendorOrBuyerExpressRouteAdapter } from "./routes/vendor-or-buyer";
 
-export class ExpressHttpServerAdapterFactory {
+class ExpressHttpServerAdapterFactory {
   static create(): HttpServerAdapterPort {
     const routeAdapters = [
-      AuthExpressRouteAdapterFactory.create(),
-      VendorOrBuyerExpressRouteAdapterFactory.create(),
+      authExpressRouteAdapter,
+      vendorOrBuyerExpressRouteAdapter,
     ];
-    const databaseAdapter = TypeOrmDatabaseAdapterFactory.create();
 
-    return new ExpressHttpServerAdapter(routeAdapters, databaseAdapter);
+    return new ExpressHttpServerAdapter(routeAdapters, typeOrmDatabaseAdapter);
   }
 }
+
+export const expressHttpServerAdapter =
+  ExpressHttpServerAdapterFactory.create();

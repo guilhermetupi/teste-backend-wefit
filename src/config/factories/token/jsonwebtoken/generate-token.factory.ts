@@ -1,8 +1,10 @@
 import { GenerateTokenJwtAdapter } from "@/adapters/token/jsonwebtoken";
 import { GenerateTokenPort } from "@/ports/token";
 
-export class GenerateTokenJwtFactory {
+class GenerateTokenJwtFactory {
   static create(): GenerateTokenPort {
     return new GenerateTokenJwtAdapter();
   }
 }
+
+export const generateTokenJwt = GenerateTokenJwtFactory.create();

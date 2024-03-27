@@ -1,22 +1,19 @@
 import { CreateUserUseCase } from "@/domain/usecases/user";
 import { CreateUserUseCasePort } from "@/ports/usecases/user";
 import {
-  TypeOrmCreateUserRepositoryFactory,
-  TypeOrmFindUserByEmailRepositoryFactory,
+  typeOrmCreateUserRepository,
+  typeOrmFindUserByEmailRepository,
 } from "../../database/orm/repositories/users";
-import { BcryptEncryptCryptographyFactory } from "../../cryptography/bcrypt";
+import { bcryptEncryptCryptography } from "../../cryptography/bcrypt";
 
-export class CreateUserUseCaseFactory {
+class CreateUserUseCaseFactory {
   static create(): CreateUserUseCasePort {
-    const createUserRepository = TypeOrmCreateUserRepositoryFactory.create();
-    const findUserByEmailRepository =
-      TypeOrmFindUserByEmailRepositoryFactory.create();
-    const encryptAdapter = BcryptEncryptCryptographyFactory.create();
-
     return new CreateUserUseCase(
-      createUserRepository,
-      findUserByEmailRepository,
-      encryptAdapter
+      typeOrmCreateUserRepository,
+      typeOrmFindUserByEmailRepository,
+      bcryptEncryptCryptography
     );
   }
 }
+
+export const createUserUseCase = CreateUserUseCaseFactory.create();

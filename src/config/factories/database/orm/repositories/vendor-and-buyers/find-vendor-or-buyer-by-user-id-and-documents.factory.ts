@@ -2,10 +2,13 @@ import { TypeOrmFindVendorOrBuyerByUserIdAndDocumentsRepository } from "@/adapte
 import { FindVendorOrBuyerByUserIdAndDocumentsRepositoryPort } from "@/ports/database/repositories/vendor-or-buyer";
 import { AppDataSource } from "@/config/orm";
 
-export class TypeOrmFindVendorOrBuyerByUserIdAndDocumentsRepositoryFactory {
+class TypeOrmFindVendorOrBuyerByUserIdAndDocumentsRepositoryFactory {
   static create(): FindVendorOrBuyerByUserIdAndDocumentsRepositoryPort {
     return new TypeOrmFindVendorOrBuyerByUserIdAndDocumentsRepository(
       AppDataSource
     );
   }
 }
+
+export const typeOrmFindVendorOrBuyerByUserIdAndDocumentsRepository =
+  TypeOrmFindVendorOrBuyerByUserIdAndDocumentsRepositoryFactory.create();

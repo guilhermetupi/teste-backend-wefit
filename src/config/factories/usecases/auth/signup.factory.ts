@@ -1,13 +1,12 @@
 import { SignupUseCase } from "@/domain/usecases/auth";
 import { SignupUseCasePort } from "@/ports/usecases/auth";
-import { GenerateTokenJwtFactory } from "../../token/jsonwebtoken";
-import { CreateUserUseCaseFactory } from "../user";
+import { generateTokenJwt } from "../../token/jsonwebtoken";
+import { createUserUseCase } from "../user";
 
-export class SignupUseCaseFactory {
+class SignupUseCaseFactory {
   static create(): SignupUseCasePort {
-    const generateTokenAdapter = GenerateTokenJwtFactory.create();
-    const createUserUseCase = CreateUserUseCaseFactory.create();
-
-    return new SignupUseCase(createUserUseCase, generateTokenAdapter);
+    return new SignupUseCase(createUserUseCase, generateTokenJwt);
   }
 }
+
+export const signupUseCase = SignupUseCaseFactory.create();

@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { DatabaseEnv } from "@/types/database";
 import { NODE_ENV } from "@/types/environment";
 import { TokenData } from "@/types/token";

@@ -1,19 +1,13 @@
 import Express from "express";
 import { HttpRouteAdapterPort } from "@/ports/http";
 import { AuthExpressRouteAdapter } from "@/adapters/http/express/routes/auth";
-import {
-  SigninPresenterFactory,
-  SignupPresenterFactory,
-} from "../../../presenters/auth";
+import { signinPresenter, signupPresenter } from "../../../presenters/auth";
 
-export class AuthExpressRouteAdapterFactory {
+class AuthExpressRouteAdapterFactory {
   static create(): HttpRouteAdapterPort<Express.Router> {
-    const signinPresenterAdapter = SigninPresenterFactory.create();
-    const signupPresenterAdapter = SignupPresenterFactory.create();
-
-    return new AuthExpressRouteAdapter(
-      signinPresenterAdapter,
-      signupPresenterAdapter
-    );
+    console.log("AuthExpressRouteAdapterFactory.create()");
+    return new AuthExpressRouteAdapter(signinPresenter, signupPresenter);
   }
 }
+
+export const authExpressRouteAdapter = AuthExpressRouteAdapterFactory.create();

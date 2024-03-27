@@ -1,21 +1,17 @@
 import { SigninUseCase } from "@/domain/usecases/auth";
 import { SigninUseCasePort } from "@/ports/usecases/auth";
-import { GenerateTokenJwtFactory } from "../../token/jsonwebtoken";
-import { TypeOrmFindUserByEmailRepositoryFactory } from "../../database/orm/repositories/users";
-import { BcryptCompareCryptographyFactory } from "../../cryptography/bcrypt";
+import { typeOrmFindUserByEmailRepository } from "../../database/orm/repositories/users";
+import { bcryptCompareCryptography } from "../../cryptography/bcrypt";
+import { generateTokenJwt } from "../../token/jsonwebtoken";
 
-export class SigninUseCaseFactory {
+class SigninUseCaseFactory {
   static create(): SigninUseCasePort {
-    const findUserByEmailRepository =
-      TypeOrmFindUserByEmailRepositoryFactory.create();
-    const compareCryptographyAdapter =
-      BcryptCompareCryptographyFactory.create();
-    const generateTokenAdapter = GenerateTokenJwtFactory.create();
-
     return new SigninUseCase(
-      findUserByEmailRepository,
-      compareCryptographyAdapter,
-      generateTokenAdapter
+      typeOrmFindUserByEmailRepository,
+      bcryptCompareCryptography,
+      generateTokenJwt
     );
   }
 }
+
+export const signinUseCase = SigninUseCaseFactory.create();

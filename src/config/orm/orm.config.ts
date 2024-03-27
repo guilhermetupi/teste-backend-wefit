@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { DataSource, DataSourceOptions } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 import { Environment } from "../env";

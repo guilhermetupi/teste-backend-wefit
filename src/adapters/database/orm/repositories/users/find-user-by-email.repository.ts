@@ -21,9 +21,7 @@ export class TypeOrmFindUserByEmailRepository
         where: { email },
       });
 
-      if (!userPersistence) {
-        return undefined;
-      }
+      if (!userPersistence) return;
 
       const userEntity = UserMapper.toEntity(userPersistence, false);
       return userEntity;

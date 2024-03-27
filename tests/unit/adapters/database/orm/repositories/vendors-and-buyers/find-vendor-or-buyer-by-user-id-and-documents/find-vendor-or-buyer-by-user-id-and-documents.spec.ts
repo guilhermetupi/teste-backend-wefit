@@ -77,6 +77,10 @@ describe("FindVendorOrBuyerByUserIdAndDocumentsRepository Typeorm", () => {
     });
   });
 
+  afterAll(async () => {
+    await AppDataSource.destroy();
+  });
+
   it("should call VendorOrBuyerMapper.toEntity with correct values", async () => {
     const { sut } = makeSut();
     const toPersistenceSpy = jest.spyOn(VendorOrBuyerMapper, "toEntity");

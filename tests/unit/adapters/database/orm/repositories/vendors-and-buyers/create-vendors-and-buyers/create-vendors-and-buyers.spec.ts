@@ -83,6 +83,10 @@ describe("CreateVendorOrBuyerRepository Typeorm", () => {
     await vendorsAndBuyersRepository.clear();
   });
 
+  afterAll(async () => {
+    await AppDataSource.destroy();
+  });
+
   it("should call VendorOrBuyerMapper.toPersistence with correct values", async () => {
     const { sut } = makeSut();
     const toPersistenceSpy = jest.spyOn(VendorOrBuyerMapper, "toPersistence");

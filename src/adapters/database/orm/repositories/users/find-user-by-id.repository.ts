@@ -20,9 +20,7 @@ export class TypeOrmFindUserByIdRepository
         where: { id },
       });
 
-      if (!userPersistence) {
-        return undefined;
-      }
+      if (!userPersistence) return;
 
       const userEntity = UserMapper.toEntity(userPersistence);
       return userEntity;

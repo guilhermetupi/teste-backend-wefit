@@ -23,7 +23,7 @@ export class TypeOrmFindUserByEmailRepository
 
       if (!userPersistence) return;
 
-      const userEntity = UserMapper.toEntity(userPersistence, false);
+      const userEntity = UserMapper.toEntity(userPersistence);
       return userEntity;
     } catch {
       return new InternalServerError();

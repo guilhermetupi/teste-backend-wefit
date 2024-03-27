@@ -1,7 +1,6 @@
 import { User } from "@/domain/entities";
 import { UsersModel } from "../../models";
 import { Email, Password } from "@/domain/value-objects";
-import { InvalidParamError } from "@/domain/errors";
 
 export class UserMapper {
   static toPersistence(userEntity: User): UsersModel {
@@ -11,24 +10,37 @@ export class UserMapper {
     };
   }
 
-  static toEntity(userPersistence: UsersModel, passwordRequiresValidation = true): User {
-    const { email, password } = this.createValueObjects(userPersistence, passwordRequiresValidation);
+  static toEntity(
+    userPersistence: UsersModel,
+    passwordRequiresValidation = false
+  ): User {
+    const { email, password } = this.createValueObjects(
+      userPersistence,
+      passwordRequiresValidation
+    );
 
     return new User(email, password, userPersistence.id);
   }
 
-  private static createValueObjects(userPersistence: UsersModel, passwordRequiresValidation = true) {
+  private static createValueObjects(
+    userPersistence: UsersModel,
+    passwordRequiresValidation: boolean
+  ) {
     const email = Email.create(userPersistence.email);
 
-    if (email instanceof InvalidParamError) {
+    if (email instanceof Error) {
       throw email;
     }
 
     let password: Password | undefined;
     if (userPersistence.password) {
-      const passwordValueObject = Password.create(userPersistence.password, passwordRequiresValidation);
+      const passwordValueObject = Password.create(
+        userPersistence.password,
+        passwordRequiresValidation
+      );
 
-      if (passwordValueObject instanceof InvalidParamError) {
+      if (passwordValueObject instanceof Error) {
+        console.log(passwordValueObject);
         throw passwordValueObject;
       }
 

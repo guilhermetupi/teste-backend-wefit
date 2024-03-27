@@ -17,6 +17,7 @@ import { CreateVendorOrBuyerUseCasePort } from "@/ports/usecases/vendor-or-buyer
 import { ErrorType } from "@/types/error";
 import { HttpStatusCode } from "@/types/http";
 import { CreateVendorOrBuyerDto } from "@/types/http/dto/vendor-or-buyer";
+import { PersonTypeEnum } from "@/types/entities";
 
 export class CreateVendorOrBuyerPresenterAdapter
   implements CreateVendorOrBuyerPresenterPort
@@ -46,6 +47,17 @@ export class CreateVendorOrBuyerPresenterAdapter
           status: HttpStatusCode.BAD_REQUEST,
           message:
             "Você deve aceitar os termos de uso para cadastrar um novo vendedor ou comprador.",
+        };
+      }
+
+      const vendorOrBuyerIsLegalPersonAndCnpjNotProvided =
+        vendorOrBuyer.personType === PersonTypeEnum.LEGAL &&
+        !vendorOrBuyer.cnpj;
+
+      if (vendorOrBuyerIsLegalPersonAndCnpjNotProvided) {
+        return {
+          status: HttpStatusCode.BAD_REQUEST,
+          message: "CNPJ é obrigatório para pessoa jurídica.",
         };
       }
 

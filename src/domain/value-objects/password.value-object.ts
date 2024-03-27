@@ -28,12 +28,14 @@ export class Password {
     }
 
     const passwordIsValid =
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d\s:]).{8,20}$/.test(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
         password
       );
 
     if (!passwordIsValid) {
-      return new InvalidParamError("Senha fraca. Use pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e símbolos.");
+      return new InvalidParamError(
+        "Senha fraca. Use pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e símbolos."
+      );
     }
 
     return true;

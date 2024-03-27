@@ -8,27 +8,26 @@ export class Email {
   static create(email: string): Email | InvalidParamError {
     const emailIsValid = Email.validate(email);
 
-    if (!emailIsValid) {
+    if (emailIsValid instanceof Error) {
       return emailIsValid;
     }
 
     return new Email(email);
   }
 
-  static validate(email: string): true | InvalidParamError {
+  static validate(email: string): InvalidParamError | void {
     const emailIsUndefined = !email || email.trim() === "";
 
     if (emailIsUndefined) {
       return new InvalidParamError("Email é obrigatório.");
     }
 
-    const emailIsValid = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email);
+    const emailIsValid =
+      /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email);
 
     if (!emailIsValid) {
       return new InvalidParamError("Email inválido.");
     }
-
-    return true;
   }
 
   get value(): string {

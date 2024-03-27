@@ -38,7 +38,7 @@ export class VendorOrBuyerMapper {
   private static createValueObjects(vendorOrBuyer: VendorsAndBuyersModel) {
     const personType = PersonType.create(vendorOrBuyer.personType);
 
-    if (personType instanceof InvalidParamError) {
+    if (personType instanceof Error) {
       throw personType;
     }
 
@@ -48,7 +48,7 @@ export class VendorOrBuyerMapper {
       isCpf: false,
     });
 
-    if (cnpj instanceof InvalidParamError) {
+    if (cnpj instanceof Error) {
       throw cnpj;
     }
 
@@ -56,25 +56,25 @@ export class VendorOrBuyerMapper {
       document: vendorOrBuyer.cpf,
     });
 
-    if (cpf instanceof InvalidParamError) {
+    if (cpf instanceof Error) {
       throw cpf;
     }
 
     const mobilePhone = Phone.create(vendorOrBuyer.mobilePhone);
 
-    if (mobilePhone instanceof InvalidParamError) {
+    if (mobilePhone instanceof Error) {
       throw mobilePhone;
     }
 
     const telephone = Phone.create(vendorOrBuyer.telephone, false);
 
-    if (telephone instanceof InvalidParamError) {
+    if (telephone instanceof Error) {
       throw telephone;
     }
 
     const email = Email.create(vendorOrBuyer.email);
 
-    if (email instanceof InvalidParamError) {
+    if (email instanceof Error) {
       throw email;
     }
 
@@ -112,7 +112,7 @@ export class VendorOrBuyerMapper {
     return {
       personType: vendorOrBuyer.personType.value,
       cnpj: vendorOrBuyer.cnpj?.value,
-      cpf: vendorOrBuyer.cpf.value,
+      cpf: vendorOrBuyer.cpf.value as string,
       mobilePhone: vendorOrBuyer.mobilePhone.value,
       telephone: vendorOrBuyer.telephone.value,
       email: vendorOrBuyer.email.value,

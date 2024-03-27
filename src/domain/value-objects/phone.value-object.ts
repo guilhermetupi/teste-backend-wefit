@@ -8,7 +8,6 @@ export class Phone {
   static create(phone: string, isMobile = true): Phone | InvalidParamError {
     const phoneIsValid = Phone.validate(phone, isMobile);
 
-
     if (phoneIsValid instanceof Error) {
       return phoneIsValid;
     }
@@ -19,7 +18,11 @@ export class Phone {
     const phoneIsUndefined = !phone || phone.trim() === "";
 
     if (phoneIsUndefined) {
-      return new InvalidParamError("Telefone é obrigatório.");
+      return new InvalidParamError(
+        isMobile
+          ? "Número de celular é obrigatório."
+          : "Número de telefone fixo é obrigatório."
+      );
     }
     const phoneLength = isMobile ? 11 : 10;
     const phoneIsValid = phone.replace(/\D/g, "").length === phoneLength;

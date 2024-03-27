@@ -10,12 +10,12 @@ import { InternalServerError } from "@/domain/errors";
 describe("CreateUserRepository Typeorm", () => {
   let usersRepository: Repository<UsersModel>;
   let userEntity: User = {
-    email: Email.create("any_email") as Email,
+    email: Email.create("any@email.com") as Email,
     password: Password.create("Any_p4ssword") as Password,
   };
   let userModel = {
     id: expect.any(String),
-    email: "any_email",
+    email: "any@email.com",
     password: "Any_p4ssword",
   } as UsersModel;
 

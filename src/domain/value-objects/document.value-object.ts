@@ -1,7 +1,7 @@
 import { InvalidParamError } from "../errors";
 
 export class Document {
-  private constructor(private readonly document: string) {
+  private constructor(private readonly document: string | undefined) {
     Object.freeze(this);
   }
 
@@ -20,11 +20,11 @@ export class Document {
       isCpf,
     });
 
-    if (!documentIsValid) {
+    if (documentIsValid instanceof Error) {
       return documentIsValid;
     }
 
-    return new Document((document as string).replace(/\D/g, ""));
+    return new Document(document?.replace(/\D/g, ""));
   }
 
   static validate({
@@ -35,11 +35,11 @@ export class Document {
     document: string | undefined;
     required?: boolean;
     isCpf?: boolean;
-  }): true | InvalidParamError | undefined {
+  }): void | InvalidParamError | undefined {
     const documentIsNotProvided = !document || document.trim() === "";
 
     if (required && documentIsNotProvided) {
-      return new InvalidParamError("Documento é obrigatório.");
+      return new InvalidParamError(`${isCpf ? "CPF" : "CNPJ"} é obrigatório.`);
     }
 
     if (documentIsNotProvided) {
@@ -53,11 +53,9 @@ export class Document {
     if (!documentIsValid) {
       return new InvalidParamError(`${isCpf ? "CPF" : "CNPJ"} inválido.`);
     }
-
-    return true;
   }
 
-  get value(): string {
+  get value(): string | undefined {
     return this.document;
   }
 }

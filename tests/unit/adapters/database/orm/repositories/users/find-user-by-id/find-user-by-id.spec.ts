@@ -12,7 +12,7 @@ describe("FindUserById Typeorm", () => {
   let userId: string;
   let userEntity: User;
   let userModel = {
-    email: "any_email",
+    email: "any@email.com",
     password: "Any_p4ssword",
   } as UsersModel;
 
@@ -25,7 +25,7 @@ describe("FindUserById Typeorm", () => {
     userId = id as string;
     userEntity = {
       id: userId,
-      email: Email.create("any_email") as Email,
+      email: Email.create("any@email.com") as Email,
       password: Password.create("Any_p4ssword") as Password,
     };
   });

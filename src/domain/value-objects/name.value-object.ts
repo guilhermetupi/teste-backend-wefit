@@ -8,7 +8,7 @@ export class Name {
   static create(name: string): Name | InvalidParamError {
     const nameIsValid = Name.isValid(name);
 
-    if (nameIsValid instanceof InvalidParamError) {
+    if (nameIsValid instanceof Error) {
       throw nameIsValid;
     }
 

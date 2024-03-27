@@ -23,8 +23,7 @@ export class TypeOrmCreateVendorOrBuyerRepository
       );
 
       await this.repository.save(newVendorOrBuyer);
-    } catch (e) {
-      console.log(e);
+    } catch {
       return new InternalServerError();
     }
   }

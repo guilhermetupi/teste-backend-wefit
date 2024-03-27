@@ -8,11 +8,11 @@ export class Phone {
   static create(phone: string, isMobile = true): Phone | InvalidParamError {
     const phoneIsValid = Phone.validate(phone, isMobile);
 
+
     if (phoneIsValid instanceof Error) {
       return phoneIsValid;
     }
-
-    return new Phone(phone);
+    return new Phone((phone as string).replace(/\D/g, ""));
   }
 
   static validate(phone: string, isMobile: boolean): true | InvalidParamError {

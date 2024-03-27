@@ -23,19 +23,20 @@ function getDataSource() {
     namingStrategy: new SnakeNamingStrategy(),
   };
 
-  const integrationTestDataSouceOptions: DataSourceOptions = {
+  const testDataSouceOptions: DataSourceOptions = {
     type: "better-sqlite3",
     database: ":memory:",
     dropSchema: true,
     synchronize: true,
     migrationsRun: true,
-    entities: [__dirname + "/../adapters/orm/models/**/*.model{.ts,.js}"],
-    migrations: [__dirname + "/../adapters/orm/migrations/**/*{.ts,.js}"],
+    entities: [
+      __dirname + "/../../adapters/database/orm/models/**/*.model{.ts,.js}",
+    ],
     namingStrategy: new SnakeNamingStrategy(),
   };
 
   return Environment.nodeEnv === NODE_ENV.TEST
-    ? integrationTestDataSouceOptions
+    ? testDataSouceOptions
     : appDataSouceOptions;
 }
 

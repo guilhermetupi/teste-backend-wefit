@@ -13,7 +13,7 @@ export class Address {
       throw addressIsValid;
     }
 
-    return new Address(address);
+    return new Address({ ...address, cep: address.cep.replace(/\D/g, "") });
   }
 
   static isValid(address: AddressType): true | InvalidParamError {

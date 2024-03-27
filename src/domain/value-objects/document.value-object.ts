@@ -5,23 +5,37 @@ export class Document {
     Object.freeze(this);
   }
 
-  static create(
-    document: string | undefined,
-    required = true
-  ): Document | undefined | InvalidParamError {
-    const documentIsValid = Document.validate(document, required);
+  static create({
+    document,
+    required = true,
+    isCpf = true,
+  }: {
+    document: string | undefined;
+    required?: boolean;
+    isCpf?: boolean;
+  }): Document | undefined | InvalidParamError {
+    const documentIsValid = Document.validate({
+      document,
+      required,
+      isCpf,
+    });
 
     if (!documentIsValid) {
       return documentIsValid;
     }
 
-    return new Document(document as string);
+    return new Document((document as string).replace(/\D/g, ""));
   }
 
-  static validate(
-    document: string | undefined,
-    required: boolean
-  ): true | InvalidParamError | undefined {
+  static validate({
+    document,
+    required = true,
+    isCpf = true,
+  }: {
+    document: string | undefined;
+    required?: boolean;
+    isCpf?: boolean;
+  }): true | InvalidParamError | undefined {
     const documentIsNotProvided = !document || document.trim() === "";
 
     if (required && documentIsNotProvided) {
@@ -32,13 +46,12 @@ export class Document {
       return undefined;
     }
 
-    const documentIsValidCpf = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/.test(document);
-    const documentIsValidCnpj = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/.test(
-      document
-    );
+    const documentLength = isCpf ? 11 : 14;
+    const documentIsValid =
+      document.replace(/\D/g, "").length === documentLength;
 
-    if (!documentIsValidCpf || !documentIsValidCnpj) {
-      return new InvalidParamError("Documento inválido.");
+    if (!documentIsValid) {
+      return new InvalidParamError(`${isCpf ? "CPF" : "CNPJ"} inválido.`);
     }
 
     return true;

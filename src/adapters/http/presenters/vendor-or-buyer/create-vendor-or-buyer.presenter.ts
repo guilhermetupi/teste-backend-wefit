@@ -110,13 +110,19 @@ export class CreateVendorOrBuyerPresenterAdapter
       throw name;
     }
 
-    const cnpj = Document.create(vendorOrBuyer.cnpj);
+    const cnpj = Document.create({
+      document: vendorOrBuyer.cnpj,
+      required: false,
+      isCpf: false,
+    });
 
     if (cnpj instanceof Error && cnpj.name === ErrorType.INVALID_PARAM) {
       throw cnpj;
     }
 
-    const cpf = Document.create(vendorOrBuyer.cpf);
+    const cpf = Document.create({
+      document: vendorOrBuyer.cpf,
+    });
 
     if (cpf instanceof Error && cpf.name === ErrorType.INVALID_PARAM) {
       throw cpf;

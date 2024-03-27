@@ -21,6 +21,7 @@ export class TypeOrmCreateVendorOrBuyerRepository
         userId,
         vendorOrBuyer
       );
+
       await this.repository.save(newVendorOrBuyer);
     } catch {
       return new InternalServerError();

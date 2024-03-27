@@ -56,15 +56,15 @@ export class VendorsAndBuyersModel {
   @Column({ type: "varchar" })
   state: string;
 
-  @Column({type:'varchar'})
+  @Column({ type: "varchar" })
   userId: string;
 
-  @ManyToOne(() => UsersModel, user => user.vendorsAndBuyers)
+  @ManyToOne(() => UsersModel, (user) => user.vendorsAndBuyers)
   user?: UsersModel;
 
-  @CreateDateColumn({ type: "timestamp" })
+  @CreateDateColumn()
   createdAt?: Date;
 
-  @UpdateDateColumn({ type: "timestamp" })
+  @UpdateDateColumn()
   updatedAt?: Date;
 }

@@ -42,13 +42,19 @@ export class VendorOrBuyerMapper {
       throw personType;
     }
 
-    const cnpj = Document.create(vendorOrBuyer.cnpj, false);
+    const cnpj = Document.create({
+      document: vendorOrBuyer.cnpj,
+      required: false,
+      isCpf: false,
+    });
 
     if (cnpj instanceof InvalidParamError) {
       throw cnpj;
     }
 
-    const cpf = Document.create(vendorOrBuyer.cpf);
+    const cpf = Document.create({
+      document: vendorOrBuyer.cpf,
+    });
 
     if (cpf instanceof InvalidParamError) {
       throw cpf;
@@ -60,7 +66,7 @@ export class VendorOrBuyerMapper {
       throw mobilePhone;
     }
 
-    const telephone = Phone.create(vendorOrBuyer.telephone);
+    const telephone = Phone.create(vendorOrBuyer.telephone, false);
 
     if (telephone instanceof InvalidParamError) {
       throw telephone;

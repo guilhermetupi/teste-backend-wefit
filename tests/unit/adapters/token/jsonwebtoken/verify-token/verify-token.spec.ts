@@ -29,13 +29,11 @@ describe("VerifyTokenAdapter JWT", () => {
 
   it("should return a payload on success", () => {
     const { sut } = makeSut();
-    jest
-      .spyOn(jwt, "verify")
-      .mockImplementationOnce((token, secret, cb: any) => {
-        cb(null, { id: "any_id" });
-      });
+    const signedToken = jwt.sign({ id: "any_id" }, "any_secret", {
+      expiresIn: "1d",
+    });
 
-    const response = sut.execute(token) as { id: string };
+    const response = sut.execute(signedToken) as { id: string };
 
     expect(response.id).toBe("any_id");
   });

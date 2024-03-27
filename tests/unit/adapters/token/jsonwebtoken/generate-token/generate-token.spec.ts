@@ -27,11 +27,10 @@ describe("GenerateTokenAdapter JWT", () => {
 
   it("should return a token on success", () => {
     const { sut } = makeSut();
-    jest.spyOn(jwt, "sign").mockImplementationOnce(() => "any_token");
 
     const response = sut.execute(payload) as { accessToken: string };
 
-    expect(response.accessToken).toBe("any_token");
+    expect(response.accessToken).toBeTruthy();
   });
 
   it("should return an InternalServerError on sign throws", () => {

@@ -19,7 +19,4 @@ jest.mock("express", () => {
 
 jest.mock("cors", () => jest.fn());
 
-jest.mock("jsonwebtoken", () => ({
-  sign: jest.fn(),
-  verify: jest.fn(),
-}));
+

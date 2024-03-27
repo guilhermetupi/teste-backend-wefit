@@ -10,7 +10,6 @@ services:
       - MYSQL_ROOT_PASSWORD='$MYSQLDB_PASSWORD'
       - MYSQL_DATABASE=$MYSQLDB_DATABASE
       - MYSQL_USER=$MYSQLDB_USER
-    command: --default-storage-engine=InnoDB
     ports:
       - $MYSQLDB_PORT:3306
     volumes:
